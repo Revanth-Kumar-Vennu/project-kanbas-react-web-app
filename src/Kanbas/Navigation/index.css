@@ -1,0 +1,90 @@
+.wd-kanbas-navigation {
+  background: black;
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+  width: 85px;
+  height: 100%;
+}
+.wd-kanbas-navigation li {
+  /* padding: 10px; */
+  margin-bottom: 10px;
+  font-size: 0.8em;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.wd-kanbas-navigation {
+    padding-top: 10px;
+}
+.wd-kanbas-navigation li.wd-active {
+  background-color: white;
+}
+.wd-kanbas-navigation li.wd-active a {
+  color: rgba(200, 19, 19, 0.675)!important;
+}
+.wd-kanbas-navigation a {
+  color: white;
+  text-decoration: none;
+}
+.wd-kanbas-navigation a svg {
+  color: rgba(255, 24, 24, 0.675) ;
+  font-size: 2em;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+}
+.wd-neu-img{
+    width: 80px;
+    
+}
+.wd-account{
+    color: white !important;
+
+}
+
+.wd-navbar{
+  width: 80px !important;
+  padding: 0px !important;
+  margin: 0px !important;
+}
+
+
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  min-width: 160px;
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.wd-kanbas-navigation-dropdown {
+  background: black;
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+  width:100% !important;
+  height: 80px;
+}
+
+.wd-kanbas-navigation-bars{
+  height: 100%;
+   color: black; 
+   
+   
+}
+
+.wd-kanbas-navigation-bars-btn{
+
+  color: black;
+   height: 100%;
+}
+

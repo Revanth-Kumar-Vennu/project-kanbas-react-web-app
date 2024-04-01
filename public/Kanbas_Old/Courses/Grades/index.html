@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Grades</title>
+</head>
+<body>
+    <select name="grade-book" id="grade-book">
+        <option selected>Gradebook</option>
+        <option>Option 2</option>
+        <option>Option 3</option>
+    </select>
+    <button>Import</button>
+    <select>
+        <option selected>Export</option>
+    </select>
+    <button>Configure</button>
+    <h1>Student Name</h1>
+    <input type="text" placeholder="Search Students"/>
+    <br>
+    <h1>Assignment Names</h1>
+    <input type="text" placeholder="Search Assignments"/>
+    <br/>
+    <br/>
+    <button>Apply Filter</button>
+    <br/>
+    <br/>
+    <table border="1" width="100%"> 
+        <tr>
+            <th>Student Name</th>
+            <th>Assignment 1 <br>(out of 100)</th>
+            <th>Assignment 2 <br>(out of 100)</th>
+            <th>Assignment 3 <br>(out of 100)</th>
+            <th>Assignment 4 <br>(out of 100)</th>
+            
+        </tr>
+        <tr align="center">
+            <td align="left">Bob</td>
+            <td>90</td>
+            <td><input  size="2" type="number" min='0'max='100' placeholder="Grade" value="85"/></td>
+            <td>92</td>
+            <td>88</td>
+        </tr>
+        <tr align="center">
+            <td align="left">Alice</td>
+            <td>80</td>
+            <td>75</td>
+            <td>82</td>
+            <td>78</td>
+        </tr>
+        <tr align="center">
+            <td align="left">Jonathan</td>
+            <td>70</td>
+            <td>72</td>
+            <td><input size="2"  type="number" min='0'max='100' placeholder="Grade" value="65"/></td>
+            <td>68</td>
+        </tr>
+        <tr align="center">
+            <td align="left">Eric</td>
+            <td><input size="2"  type="number" min='0'max='100' placeholder="Grade" value="85"/></td>
+            <td>80</td>
+            <td>87</td>
+            <td><input  size="2"  type="number" min='0'max='100' placeholder="Grade" value="83"/></td>
+        </tr>
+       
+    </table>
+</body>
+</html>
+        

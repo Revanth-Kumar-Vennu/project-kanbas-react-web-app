@@ -1,0 +1,83 @@
+.wd-card{
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+    background-color: #fff;
+    max-height: 300px;
+    min-width: 300px;
+    margin: 12px !important;
+    padding: 0px;
+    width: 300px !important;
+}
+.wd-card .wd-upper-half {
+    color: white;
+    padding: 0px;
+    height: 146px;
+    border-radius: 5px 5px 0 0;
+    position: relative;
+}
+
+.wd-card .wd-upper-half .wd-dots {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #fff;
+}
+
+.wd-bg-light-blue{
+    background-color: #00bcd4;
+}
+
+.wd-bg-light-grey{
+    background-color: #e0e0e0;
+}
+
+.wd-bg-light-orange{
+    background-color: #ff9800;
+}
+
+.wd-fontcolor-light-grey{
+    color: #adaaaa;
+}
+
+.wd-fontcolor-light-blue{
+    color: #00bcd4;
+}
+
+.wd-fontcolor-light-orange{
+    color: #ff9800;
+}
+.wd-card .wd-lower-half {
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 0 0 5px 5px;
+    color: #6A6F72;
+    font-size: 14px;
+    height: 120px;
+}
+
+.wd-course-name {
+    font-size: 16px;
+    overflow: hidden;
+}
+
+.wd-course-term {
+    font-size: 12px;
+    overflow: hidden;
+}
+
+.wd-link{
+    text-decoration: none;
+}
+
+.wd-link:hover{
+    text-decoration: underline;
+    text-decoration-color: rgb(250, 99, 99);
+}
+
+.wd-edit{
+    color: #e0e0e0;
+   padding-top: 5px;
+}
+
+
+

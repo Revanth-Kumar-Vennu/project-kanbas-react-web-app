@@ -1,0 +1,262 @@
+.wd-modules > li:first-child {
+  background-color: #eeeeef;
+}
+
+.wd-module-button {
+  color: black;
+  background-color: #eeeeef;
+  border-radius: 2px;
+  border-style: inset;
+  border: black;
+  border-width: 5px !important;
+  box-shadow: 0px 0px 5px 0px #c5c5c562;
+  margin-bottom: 4px;
+}
+
+.wd-module-button:hover {
+  color: black;
+  background-color: #c5c5c5;
+}
+
+.wd-module-buttons-group button {
+  border-radius: 2px;
+  /* border-style: inset; */
+  box-shadow: 0px 0px 5px 0px #c5c5c562;
+}
+
+.wd-modules > li > span {
+  margin-left: 10px;
+}
+
+.wd-module-link {
+  color: rgba(200, 19, 19, 0.675) !important;
+  text-decoration: none;
+  font-weight: 550 !important;
+}
+
+.wd-module-link:hover {
+  text-decoration: underline;
+  text-decoration-color: rgba(200, 19, 19, 0.675);
+}
+
+.wd-modules > li {
+  color: rgba(0, 0, 0, 0.689);
+}
+.wd-add-module {
+  background-color: rgba(200, 19, 19, 0.804);
+  box-shadow: 0px 0px 3px 0px rgba(200, 19, 19, 0.675) !important;
+}
+.wd-modules {
+  border-radius: 0px;
+  margin-bottom: 50px;
+  font-weight: 550;
+}
+
+.wd-dots {
+  color: #8e8e8e !important;
+}
+
+.wd-green-border {
+  border-left: 4px solid green;
+}
+
+.wd-green-border:hover {
+  background-color: rgb(234, 250, 255);
+}
+
+.wd-module-link-icon {
+  color: green !important;
+}
+
+.wd-btns-1 {
+  width: 100%;
+}
+
+.wd-btns-1 button {
+  width: 40%;
+  border-radius: 0px !important;
+  height: auto;
+}
+
+.wd-btns-2 {
+  margin-top: 20px;
+}
+
+.wd-btns-2 button {
+  width: 80%;
+  padding-right: 20px;
+  text-align: left;
+}
+
+.wd-todo {
+  margin-top: 15px;
+  width: 80% !important;
+}
+
+.wd-todo span {
+  font-weight: bold;
+}
+
+.wd-todo-hr {
+  margin-top: 5px !important;
+  color: #8e8e8e !important;
+}
+
+.wd-close {
+  color: #8e8e8e !important;
+}
+
+.wd-todo-text {
+  padding: 0px !important;
+}
+
+.wd-description {
+  color: #8e8e8e;
+}
+
+.wd-calendar {
+  margin-top: 15px !important;
+  width: 80% !important;
+}
+
+.wd-calendar span {
+  font-weight: bold;
+}
+
+.wd-kanbas-navigation-dropdown {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.wd-quick-nav {
+  width: 60vh !important;
+  height: 100vh !important;
+  top: 0px !important;
+  left: 0px !important;
+  z-index: 999;
+  background-color: white !important;
+}
+
+.wd-kanbas-quick-navigation-list {
+  list-style: none;
+}
+
+.wd-course-quick-navigation-list {
+  list-style: none;
+  padding: 5px;
+}
+.wd-kanbas-quick-navigation-list li {
+  margin-top: 30px;
+  font-size: large;
+  color: rgba(200, 19, 19, 0.675) !important;
+}
+
+.wd-kanbas-quick-navigation-list > li:first-child {
+  /* margin-left: 100%; */
+  left: -50px;
+}
+.wd-kanbas-quick-navigation-list > li:first-child button i {
+  font-size: xx-large;
+}
+.wd-kanbas-quick-navigation-list li a {
+  color: rgba(200, 19, 19, 0.675) !important;
+}
+
+.wd-kanbas-quick-navigation-list li a i {
+  font-size: x-large;
+}
+.wd-arrow {
+  color: black !important;
+  margin-right: 50px;
+}
+
+.wd-nav-bar-content {
+  color: white !important;
+}
+
+.wd-bg-black {
+  background-color: black !important;
+  box-shadow: 0px 0px 0px 0px !important;
+}
+
+.wd-nav-btns-grp {
+  margin-top: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0px 0px 0px 0px !important;
+}
+
+.wd-eye-icon {
+  margin-left: 30px;
+  font-weight: 100;
+  margin-right: 20px;
+  margin-top: 5px;
+}
+
+.wd-semester {
+  color: #9b9b9b !important;
+  font-style: italic;
+  font-size: small;
+  margin-left: 20px;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "/";
+}
+
+.breadcrumb-item:last-of-type::before {
+  content: ">";
+}
+
+.wd-course-header{
+  margin: 25px !important;
+  max-width: 93% !important;
+
+
+}
+
+.wd-bars-icon{
+  margin-top: 4px;
+  font-size: x-large;
+  
+}
+
+.wd-current-location{
+  margin-left: 15px;
+  font-size: large;
+}
+
+@media (max-width: 768px) {
+  .wd-main-div {
+    margin-left: 0px;
+  }
+}
+
+/* Media query for screen size larger than md */
+@media (min-width: 769px) {
+  .wd-main-div {
+    margin-left: 90px;
+  }
+}
+
+.wd-quick-nav-header{
+  text-decoration: underline;
+  color: white;
+}
+
+
+.wd-quick-nav-btn{
+  color: black;
+  background-color: black;
+  margin-left: 10px;
+  box-shadow: 0px 0px 0px 0px !important; 
+
+}
+
+.wd-quick-nav-bars{
+  margin-top: 20px !important;
+}
+
+.wd-quick-nav-btn i{
+  color: white;
+  
+}

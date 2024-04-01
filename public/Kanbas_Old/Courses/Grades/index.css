@@ -1,0 +1,22 @@
+.wd-search-box{
+    margin-top: 10px;
+}
+
+.wd-search-student-div{
+    margin-left:10px;
+}
+
+.wd-apply-filter{
+    margin-top: 15px;
+}
+
+
+
+.wd-grade-table input[type="number"] {
+    text-align: center;
+}
+
+.wd-grade-table {
+    text-align: center;
+    border: 1px solid #dee2e6;
+}

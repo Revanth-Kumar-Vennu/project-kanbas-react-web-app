@@ -1,0 +1,94 @@
+[
+  {
+    "_id": "A101",
+    "title": "Propulsion Assignment",
+    "course": "RS101",
+    "dueDate": "2021-10-01",
+    "description": "Design a propulsion system for a spacecraft",
+    "points": "100",
+    "availableFrom": "2021-09-01",
+    "availableUntil": "2021-10-01"
+  },
+  {
+    "_id": "A102",
+    "title": "Combustion Analysis",
+    "course": "RS101",
+    "dueDate": "2021-10-15",
+    "description": "Analyze the combustion process in a rocket engine",
+    "points": "100",
+    "availableFrom": "2021-09-01",
+    "availableUntil": "2021-10-15"
+  },
+  {
+    "_id": "A103",
+    "title": "Nozzle Design Project",
+    "course": "RS101",
+    "dueDate": "2021-11-01",
+    "description": "Design a nozzle for a rocket engine",
+    "points": "100",
+    "availableFrom": "2021-09-01",
+    "availableUntil": "2021-11-01"
+
+  },
+  {
+    "_id": "A201",
+    "title": "Aerodynamics Quiz",
+    "course": "RS102",
+    "dueDate": "2021-10-01",
+    "description": "A quiz on aerodynamics",
+    "points": "100",
+    "availableFrom": "2021-09-01",
+    "availableUntil": "2021-10-01"
+  },
+  {
+    "_id": "A202",
+    "title": "Flow Analysis",
+    "course": "RS102",
+    "dueDate": "2021-10-15",
+    "description": "Analyze the flow around a spacecraft",
+    "points": "100",
+    "availableFrom": "2021-09-01",
+    "availableUntil": "2021-10-15"
+  },
+  {
+    "_id": "A203",
+    "title": "Heating Analysis",
+    "course": "RS102",
+    "dueDate": "2021-11-01",
+    "description": "Analyze the heating of a spacecraft during re-entry",
+    "points": "100",
+    "availableFrom": "2021-09-01",
+    "availableUntil": "2021-11-01"
+  },
+  {
+    "_id": "A301",
+    "title": "Structural Design Task",
+    "course": "RS103",
+    "dueDate": "2021-10-01",
+    "description": "Design the structure of a spacecraft",
+    "points": "100",
+    "availableFrom": "2021-09-01",
+    "availableUntil": "2021-10-01"
+
+  },
+  {
+    "_id": "A302",
+    "title": "Orbital Calculations",
+    "course": "RS103",
+    "dueDate": "2021-10-15",
+    "description": "Calculate the orbit of a spacecraft",
+    "points": "100",
+    "availableFrom": "2021-09-01",
+    "availableUntil": "2021-10-15"
+  },
+  {
+    "_id": "A303",
+    "title": "Systems Engineering Exam",
+    "course": "RS103",
+    "dueDate": "2021-11-01",
+    "description": "An exam on systems engineering",
+    "points": "100",
+    "availableFrom": "2021-09-01",
+    "availableUntil": "2021-11-01"
+  }
+]

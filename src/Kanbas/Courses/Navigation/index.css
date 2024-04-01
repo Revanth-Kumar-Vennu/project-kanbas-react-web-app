@@ -1,0 +1,37 @@
+.wd-navigation {
+    background-color: white;
+    list-style: none;
+    padding: 0px;
+    width: 125px;
+    margin: 0px;
+    margin-left: 20px;
+  }
+  .wd-navigation li {
+    padding-left: 10px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .wd-navigation li.wd-active {
+    border-left: 2px solid black;
+  }
+  .wd-navigation li.wd-active a {
+    color: black;
+  }
+  .wd-navigation a {
+    color: rgba(200, 19, 19, 0.675);
+    text-decoration: none;
+    font-weight: 550 !important;
+  }
+
+  .wd-semester {
+    color: #9b9b9b !important;
+    font-style: italic;
+    font-size: small;
+    margin-left: 20px;
+  }
+  
+  .wd-course-nav-container{
+    width: 250px !important;
+  }
