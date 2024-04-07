@@ -4,7 +4,7 @@ function EncodingParametersInURLs() {
   const [a, setA] = useState(34);
   const [b, setB] = useState(23);
   const [welcome, setWelcome] = useState("");
-  const API_BASE = process.env.REACT_APP_API_BASE;
+  const API_BASE = process.env.REACT_APP_API_BASE_URL;
   const fetchWelcome = async () => {
     const response = await axios.get(API_BASE + "/a5/welcome");
     setWelcome(response.data);

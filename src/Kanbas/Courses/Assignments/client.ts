@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_BASE = process.env.REACT_APP_API_BASE;
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
 const COURSES_API = `${API_BASE}/api/courses`;
 const ASSIGNMENTS_API = `${API_BASE}/api/assignments`;
 export const deleteAssignment = async (assignmentId: any) => {

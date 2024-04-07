@@ -15,7 +15,7 @@ function WorkingWithObjects() {
     description: "Create a NodeJS server with ExpressJS",
     course: "CS572",
   });
-  const API_BASE = process.env.REACT_APP_API_BASE;
+  const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
   const ASSIGNMENT_URL = `${API_BASE}/a5/assignment`;
   const MODULE_URL = `${API_BASE}/a5/module`;
