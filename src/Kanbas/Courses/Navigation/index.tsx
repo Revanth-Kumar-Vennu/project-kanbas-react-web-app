@@ -7,6 +7,7 @@ function CourseNavigation({ course_id, course }: { course_id: string, course: an
     "Piazza",
     "Assignments",
     "Grades",
+    "Quizzes",
     "People",
     "Panopto",
     "Zoom",

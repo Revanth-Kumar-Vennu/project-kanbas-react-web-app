@@ -31,6 +31,7 @@ function CourseHeader({
     "Syllabus",
     "Progress",
     "Settings",
+    "Quizzes",
   ];
   const parts = location.split("/");
   let inSubModule = false;
