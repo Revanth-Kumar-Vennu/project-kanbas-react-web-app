@@ -8,7 +8,6 @@ import {
   FaRocket,
   FaTrash,
 } from "react-icons/fa";
-import snip from "../../../images/snip.png";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "./index.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,7 +19,7 @@ function Quizzes() {
   const navigate = useNavigate();
   const { courseId } = useParams();
   const [showConfirm, setShowConfirm] = useState(false);
-  const [showDropdown, setShowDropdown] = useState(null); // Keep track of which quiz's dropdown is open
+  const [showDropdown, setShowDropdown] = useState(null); 
   const [toggleDropdown, setToggleDropdown] = useState(false);
   const quizList = useSelector(
     (state: KanbasState) => state.quizzesReducer.quizzes
@@ -30,15 +29,15 @@ function Quizzes() {
   );
 
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   client
-  //     .findAssignmentForCourse(courseId)
-  //     .then((modules) => dispatch(setQuizzes(modules)));
-  // }, [courseId, dispatch]);
+  useEffect(() => {
+    client
+      .findQuizForCourse(courseId)
+      .then((quizzes) => dispatch(setQuizzes(quizzes)));
+  }, [courseId, dispatch]);
 
-  const handleDelete = (assignment_id: string) => {
-    client.deleteAssignment(assignment_id).then(() => {
-      dispatch(deleteQuiz(assignment_id));
+  const handleDelete = (quizId: string) => {
+    client.deleteQuiz(quizId).then(() => {
+      dispatch(deleteQuiz(quizId));
       setShowConfirm(false);
     });
   };

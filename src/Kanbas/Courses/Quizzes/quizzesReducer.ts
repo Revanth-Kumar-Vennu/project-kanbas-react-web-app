@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { quizzes } from "../../Database";
 
 const initialState = {
-  quizzes:quizzes,
+  quizzes: Array<any>(),
   selectedQuiz: {
     _id: "123",
     title: "New Title",
@@ -23,26 +22,7 @@ const initialState = {
     untilDate: "2022-12-31",
     isPublished: true
   },
-  quiz: {
-    _id: "123",
-    title: "New Title",
-    course: "6611cdf8f4fcf6fe33fef998",
-    quizType: "Graded Quiz",
-    points: 100,
-    assignmentGroup: "Quizzes",
-    shuffleAnswers: true,
-    timeLimit: 20,
-    multipleAttempts: false,
-    showCorrectAnswers: "When correct answers are shown to students",
-    accessCode: "",
-    oneQuestionAtATime: true,
-    webcamRequired: false,
-    lockQuestionsAfterAnswering: false,
-    dueDate: "2022-12-31",
-    availableDate: "2022-12-01",
-    untilDate: "2022-12-31",
-    isPublished: true
-  },
+  quiz:{},
   dummyQuiz: {
     _id: "123",
     title: "New Title",

@@ -4,56 +4,60 @@ import "../index.css";
 import { useDispatch, useSelector } from "react-redux";
 import { KanbasState } from "../../../store";
 import { useEffect } from "react";
-import { setQuiz} from "../quizzesReducer";
+import { setQuiz } from "../quizzesReducer";
+import * as client from "../client";
 
 function QuizDetails() {
   const { courseId, quizId } = useParams();
   const dispatch = useDispatch();
-  const quiz = useSelector((state: KanbasState) => state.quizzesReducer.quiz);
   const quizzes = useSelector(
     (state: KanbasState) => state.quizzesReducer.quizzes
   );
-  function formatDate(inputDate: string): string {
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
+  function formatDate(inputDateString: string): string {
+    // Create a new Date object using the input date string
+    const date: Date = new Date(inputDateString);
+
+    // Define months array for formatting
+    const months: string[] = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
     ];
 
-    const [year, month, day] = inputDate.split("-").map(Number);
-    const formattedDate = `${months[month - 1]} ${day}, ${year}`;
-    return formattedDate;
-  }
+    // Extract month, day, and year from the date object
+    const month: string = months[date.getUTCMonth()];
+    const day: number = date.getUTCDate();
+    const year: number = date.getUTCFullYear();
+
+    // Format the date string
+    const formattedDateString: string = `${month} ${day}, ${year}`;
+
+    return formattedDateString;
+}
   const dummyQuiz = useSelector(
     (state: KanbasState) => state.quizzesReducer.dummyQuiz
   );
 
+
   useEffect(() => {
     if (quizId !== "new") {
-      const currentQuiz = quizzes.find(
-        (quiz) => quiz._id === quizId
+      client
+        .findQuizByID(quizId)
+        .then((quiz) =>{
+          console.log("quiz", quiz);
+           dispatch(setQuiz(quiz))
+        }
       );
-      if (currentQuiz) {
-        dispatch(setQuiz(currentQuiz));
-      }
     } else {
       dispatch(setQuiz(dummyQuiz));
     }
-  }, [quizId, quizzes, dispatch, dummyQuiz]);
+  }, [dispatch, dummyQuiz, quizId]);
+  const quiz = useSelector((state: KanbasState) => state.quizzesReducer.quiz);
 
- 
   return (
     <div style={{ marginRight: 55 }}>
       <div className="d-flex justify-content-end">
+       
+
         <button
           type="button"
           style={
