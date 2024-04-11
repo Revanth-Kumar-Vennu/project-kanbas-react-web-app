@@ -35,13 +35,16 @@ function Quizzes() {
   );
 
   const quiz = useSelector((state: KanbasState) => state.quizzesReducer.quiz);
+  const dummmyQuiz = useSelector(
+    (state: KanbasState) => state.quizzesReducer.dummyQuiz
+  );
 
   const dispatch = useDispatch();
   useEffect(() => {
     client
       .findQuizForCourse(courseId)
       .then((quizzes) => dispatch(setQuizzes(quizzes)));
-  }, [courseId, dispatch]);
+  }, [courseId, dispatch, quizList]);
 
   const handleDelete = (quizId: string) => {
     client.deleteQuiz(quizId).then(() => {
@@ -59,11 +62,10 @@ function Quizzes() {
   };
 
   const handleCreateQuiz = () => {
-    dispatch(setQuiz({ ...quiz, courseId: courseId }));
-    client.createQuiz(courseId, quiz).then((quiz) => {
+    client.createQuiz(courseId, dummmyQuiz).then((quiz) => {
       dispatch(addQuiz(quiz));
+      dispatch(setQuiz(quiz));
       navigate(`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}`);
-
     });
   };
 
@@ -109,12 +111,13 @@ function Quizzes() {
           />
         </div>
         <div className="ms-auto">
-            <button className="btn btn-danger me-2 wd-add-module" 
+          <button
+            className="btn btn-danger me-2 wd-add-module"
             onClick={() => handleCreateQuiz()}
-            >
-              <FaPlus className="fas fa-plus me-2" /> Add Quiz
-            </button>
-          
+          >
+            <FaPlus className="fas fa-plus me-2" /> Add Quiz
+          </button>
+
           <button className="btn btn-secondary me-2 wd-module-button">
             <FaEllipsisV className="fas fa-ellipsis-v" />
           </button>

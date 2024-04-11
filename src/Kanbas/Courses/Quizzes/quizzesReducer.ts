@@ -22,7 +22,26 @@ const initialState = {
     untilDate: "2022-12-31",
     isPublished: true
   },
-  quiz:{},
+  quiz:{
+    _id: "123",
+    title: "New Title",
+    course: "6611cdf8f4fcf6fe33fef998",
+    quizType: "Graded Quiz",
+    points: 100,
+    assignmentGroup: "Quizzes",
+    shuffleAnswers: true,
+    timeLimit: 20,
+    multipleAttempts: false,
+    showCorrectAnswers: "When correct answers are shown to students",
+    accessCode: "",
+    oneQuestionAtATime: true,
+    webcamRequired: false,
+    lockQuestionsAfterAnswering: false,
+    dueDate: "2022-12-31",
+    availableDate: "2022-12-01",
+    untilDate: "2022-12-31",
+    isPublished: true
+  },
   dummyQuiz: {
     _id: "123",
     title: "New Title",
