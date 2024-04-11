@@ -6,20 +6,26 @@ import {
   FaEllipsisV,
   FaPlus,
   FaRocket,
-  FaTrash,
 } from "react-icons/fa";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "./index.css";
 import { useDispatch, useSelector } from "react-redux";
 import { KanbasState } from "../../store";
 import * as client from "./client";
-import { deleteQuiz, setQuizzes, setSelectedQuiz } from "./quizzesReducer";
+import {
+  addQuiz,
+  deleteQuiz,
+  setQuiz,
+  setQuizzes,
+  setSelectedQuiz,
+  updateQuiz,
+} from "./quizzesReducer";
 
 function Quizzes() {
   const navigate = useNavigate();
   const { courseId } = useParams();
   const [showConfirm, setShowConfirm] = useState(false);
-  const [showDropdown, setShowDropdown] = useState(null); 
+  const [showDropdown, setShowDropdown] = useState(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
   const quizList = useSelector(
     (state: KanbasState) => state.quizzesReducer.quizzes
@@ -27,6 +33,8 @@ function Quizzes() {
   const selectedQuiz = useSelector(
     (state: KanbasState) => state.quizzesReducer.selectedQuiz
   );
+
+  const quiz = useSelector((state: KanbasState) => state.quizzesReducer.quiz);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -39,6 +47,23 @@ function Quizzes() {
     client.deleteQuiz(quizId).then(() => {
       dispatch(deleteQuiz(quizId));
       setShowConfirm(false);
+    });
+  };
+
+  const handlePublish = (quiz: any) => {
+    dispatch(setQuiz({ ...quiz, isPublished: !quiz.isPublished }));
+    quiz = { ...quiz, isPublished: !quiz.isPublished };
+    client.updateQuiz(quiz).then(() => {
+      dispatch(updateQuiz(quiz));
+    });
+  };
+
+  const handleCreateQuiz = () => {
+    dispatch(setQuiz({ ...quiz, courseId: courseId }));
+    client.createQuiz(courseId, quiz).then((quiz) => {
+      dispatch(addQuiz(quiz));
+      navigate(`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}`);
+
     });
   };
 
@@ -84,11 +109,12 @@ function Quizzes() {
           />
         </div>
         <div className="ms-auto">
-          <Link to={`/Kanbas/Courses/${courseId}/Quizzes/new`}>
-            <button className="btn btn-danger me-2 wd-add-module">
+            <button className="btn btn-danger me-2 wd-add-module" 
+            onClick={() => handleCreateQuiz()}
+            >
               <FaPlus className="fas fa-plus me-2" /> Add Quiz
             </button>
-          </Link>
+          
           <button className="btn btn-secondary me-2 wd-module-button">
             <FaEllipsisV className="fas fa-ellipsis-v" />
           </button>
@@ -188,7 +214,9 @@ function Quizzes() {
                         <button
                           className="dropdown-item"
                           onClick={() => {
-                            // Handle Publish action
+                            dispatch(setQuiz(quiz));
+                            console.log("quiz", quiz);
+                            handlePublish(quiz);
                           }}
                         >
                           {quiz.isPublished ? " Unpublish" : " Publish"}

@@ -1,26 +1,36 @@
 import { FaBan, FaCheckCircle, FaEllipsisV, FaPencilAlt } from "react-icons/fa";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "../index.css";
 import { useDispatch, useSelector } from "react-redux";
 import { KanbasState } from "../../../store";
 import { useEffect } from "react";
-import { setQuiz } from "../quizzesReducer";
+import { setQuiz, updateQuiz } from "../quizzesReducer";
 import * as client from "../client";
 
 function QuizDetails() {
-  const { courseId, quizId } = useParams();
+  const { quizId } = useParams();
   const dispatch = useDispatch();
-  const quizzes = useSelector(
-    (state: KanbasState) => state.quizzesReducer.quizzes
-  );
+  const navigate = useNavigate();
+  const { courseId } = useParams();
+
   function formatDate(inputDateString: string): string {
     // Create a new Date object using the input date string
     const date: Date = new Date(inputDateString);
 
     // Define months array for formatting
     const months: string[] = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
     ];
 
     // Extract month, day, and year from the date object
@@ -32,21 +42,25 @@ function QuizDetails() {
     const formattedDateString: string = `${month} ${day}, ${year}`;
 
     return formattedDateString;
-}
+  }
   const dummyQuiz = useSelector(
     (state: KanbasState) => state.quizzesReducer.dummyQuiz
   );
 
+  const handlePublish = (quiz: any) => {
+    dispatch(setQuiz({ ...quiz, isPublished: !quiz.isPublished }));
+    quiz = { ...quiz, isPublished: !quiz.isPublished };
+    client.updateQuiz(quiz).then(() => {
+      dispatch(updateQuiz(quiz));
+    });
+  };
 
   useEffect(() => {
     if (quizId !== "new") {
-      client
-        .findQuizByID(quizId)
-        .then((quiz) =>{
-          console.log("quiz", quiz);
-           dispatch(setQuiz(quiz))
-        }
-      );
+      client.findQuizByID(quizId).then((quiz) => {
+        console.log("quiz", quiz);
+        dispatch(setQuiz(quiz));
+      });
     } else {
       dispatch(setQuiz(dummyQuiz));
     }
@@ -56,10 +70,9 @@ function QuizDetails() {
   return (
     <div style={{ marginRight: 55 }}>
       <div className="d-flex justify-content-end">
-       
-
         <button
           type="button"
+          onClick={() => handlePublish(quiz)}
           style={
             !quiz.isPublished
               ? { background: "rgb(2, 128, 2)" }
@@ -86,13 +99,21 @@ function QuizDetails() {
           Preview{" "}
         </button>{" "}
         &nbsp;&nbsp;
-        <button type="button" className="btn wd-module-button ">
+        <button type="button" className="btn wd-module-button " 
+        onClick={() => {
+          // Handle Edit action
+          navigate(
+            `/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}/edit/DetailsEditor`
+          );
+        }}
+        >
           {" "}
           <FaPencilAlt
             style={{ color: "grey" }}
             className="fas fa-check-circle button-color"
           />{" "}
           Edit{" "}
+         
         </button>{" "}
         &nbsp;&nbsp;
         <button type="button" className="btn wd-module-button ">

@@ -16,6 +16,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Quizzes from "./Quizzes";
 import QuizDetails from "./Quizzes/Details";
+import DetailsEditor from "./Quizzes/Editor/DetailsEditor";
+import QuestionsEditor from "./Quizzes/Editor/QuestionsEditor";
 
 function Courses() {
   const { courseId } = useParams();
@@ -46,7 +48,7 @@ function Courses() {
             <Route path="/" element={<Navigate to="Home" />} />
             <Route
               path="Home"
-              element={<Home course_id={course?._id || ""} course={course}/>}
+              element={<Home course_id={course?._id || ""} course={course} />}
             />
             <Route path="Modules" element={<Module />} />
             <Route path="Piazza" element={<h1>Piazza</h1>} />
@@ -56,11 +58,16 @@ function Courses() {
               path="Assignments/:assignmentId"
               element={<AssignmentEditor />}
             />
-            <Route 
-              path="Quizzes/:quizId"
-              element={<QuizDetails />}
-            />
+            <Route path="Quizzes/:quizId" element={<QuizDetails />} />
             <Route path="Grades" element={<Grades />} />
+            <Route
+              path="Quizzes/:quizId/edit/DetailsEditor"
+              element={<DetailsEditor />}
+            />
+            <Route
+              path="Quizzes/:quizId/edit/QuestionsEditor"
+              element={<QuestionsEditor />}
+            />
           </Routes>
         </div>
       </div>

@@ -22,6 +22,7 @@ export const createQuiz = async (courseId: any, quiz: any) => {
 };
 
 export const updateQuiz = async (quiz: { _id: any }) => {
+  console.log("quiz in update", quiz);
   const response = await axios.put(`${QUIZZES_API}/${quiz._id}`, quiz);
   return response.data;
 };
