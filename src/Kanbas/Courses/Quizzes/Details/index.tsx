@@ -99,13 +99,15 @@ function QuizDetails() {
           Preview{" "}
         </button>{" "}
         &nbsp;&nbsp;
-        <button type="button" className="btn wd-module-button " 
-        onClick={() => {
-          // Handle Edit action
-          navigate(
-            `/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}/edit/DetailsEditor`
-          );
-        }}
+        <button
+          type="button"
+          className="btn wd-module-button "
+          onClick={() => {
+            // Handle Edit action
+            navigate(
+              `/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}/edit/DetailsEditor`
+            );
+          }}
         >
           {" "}
           <FaPencilAlt
@@ -113,7 +115,6 @@ function QuizDetails() {
             className="fas fa-check-circle button-color"
           />{" "}
           Edit{" "}
-         
         </button>{" "}
         &nbsp;&nbsp;
         <button type="button" className="btn wd-module-button ">
@@ -167,8 +168,19 @@ function QuizDetails() {
           <div className="col-3">
             <strong className="float-right">Show Correct Answers</strong>
           </div>
-          <div className="col-9">{quiz.showCorrectAnswers}</div>
+          <div className="col-9">{quiz.showCorrectAnswers ? "Yes" : "No"}</div>
         </div>
+        
+        {quiz.showCorrectAnswers && (
+          <div className="row">
+            <div className="col-3">
+              <strong className="float-right">Correct Answers Date</strong>
+            </div>
+
+            <div className="col-9">{formatDate(quiz.correctAnswersDate)}</div>
+          </div>
+        )}
+
         <div className="row">
           <div className="col-3">
             <strong className="float-right">One Question At A Time</strong>

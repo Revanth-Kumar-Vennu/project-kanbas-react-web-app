@@ -8,7 +8,7 @@ function NavigationTabs() {
   const pathname = useLocation().pathname;
   const { quizId } = useParams();
   return (
-    <nav className="nav nav-tabs mt-2">
+    <nav className="nav nav-tabs mt-2" style={{marginRight:'5%'}}>
       <Link
         to={`/Kanbas/Courses/${courseId}/Quizzes/${quizId}/edit/DetailsEditor`}
         className={`nav-link ${

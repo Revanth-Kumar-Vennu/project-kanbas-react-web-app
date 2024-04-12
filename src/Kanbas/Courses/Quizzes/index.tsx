@@ -34,7 +34,6 @@ function Quizzes() {
     (state: KanbasState) => state.quizzesReducer.selectedQuiz
   );
 
-  const quiz = useSelector((state: KanbasState) => state.quizzesReducer.quiz);
   const dummmyQuiz = useSelector(
     (state: KanbasState) => state.quizzesReducer.dummyQuiz
   );
@@ -44,7 +43,7 @@ function Quizzes() {
     client
       .findQuizForCourse(courseId)
       .then((quizzes) => dispatch(setQuizzes(quizzes)));
-  }, [courseId, dispatch, quizList]);
+  }, [courseId, dispatch]);
 
   const handleDelete = (quizId: string) => {
     client.deleteQuiz(quizId).then(() => {

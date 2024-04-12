@@ -9,6 +9,7 @@ export const deleteQuiz = async (quizId: any) => {
 
 export const findQuizForCourse = async (courseId: any) => {
   const response = await axios.get(`${COURSES_API}/${courseId}/quizzes`);
+  console.log("response", response.data);
   return response.data;
 };
 export const createQuiz = async (courseId: any, quiz: any) => {

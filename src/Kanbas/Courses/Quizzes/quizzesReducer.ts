@@ -5,6 +5,7 @@ const initialState = {
   selectedQuiz: {
     _id: "123",
     title: "New Title",
+    description: "New Description",
     course: "6611cdf8f4fcf6fe33fef998",
     quizType: "Graded Quiz",
     points: 100,
@@ -12,7 +13,7 @@ const initialState = {
     shuffleAnswers: true,
     timeLimit: 20,
     multipleAttempts: false,
-    showCorrectAnswers: "When correct answers are shown to students",
+    showCorrectAnswers: true,
     accessCode: "",
     oneQuestionAtATime: true,
     webcamRequired: false,
@@ -20,11 +21,15 @@ const initialState = {
     dueDate: "2022-12-31",
     availableDate: "2022-12-01",
     untilDate: "2022-12-31",
-    isPublished: true
+    correctAnswersDate: "2022-12-31",
+    isTimeLimited: true,
+    isPublished: true,
+
   },
   quiz:{
     _id: "123",
     title: "New Title",
+    description: "New Description",
     course: "6611cdf8f4fcf6fe33fef998",
     quizType: "Graded Quiz",
     points: 100,
@@ -32,7 +37,7 @@ const initialState = {
     shuffleAnswers: true,
     timeLimit: 20,
     multipleAttempts: false,
-    showCorrectAnswers: "When correct answers are shown to students",
+    showCorrectAnswers: true,
     accessCode: "",
     oneQuestionAtATime: true,
     webcamRequired: false,
@@ -40,11 +45,14 @@ const initialState = {
     dueDate: "2022-12-31",
     availableDate: "2022-12-01",
     untilDate: "2022-12-31",
-    isPublished: true
+    correctAnswersDate: "2022-12-31",
+    isTimeLimited: true,
+    isPublished: true,
   },
   dummyQuiz: {
     _id: "123",
     title: "New Title",
+    description: "New Description",
     course: "6611cdf8f4fcf6fe33fef998",
     quizType: "Graded Quiz",
     points: 100,
@@ -52,7 +60,7 @@ const initialState = {
     shuffleAnswers: true,
     timeLimit: 20,
     multipleAttempts: false,
-    showCorrectAnswers: "When correct answers are shown to students",
+    showCorrectAnswers: true,
     accessCode: "",
     oneQuestionAtATime: true,
     webcamRequired: false,
@@ -60,7 +68,9 @@ const initialState = {
     dueDate: "2022-12-31",
     availableDate: "2022-12-01",
     untilDate: "2022-12-31",
-    isPublished: true
+    correctAnswersDate: "2022-12-31",
+    isTimeLimited: true,
+    isPublished: true,
   },
 };
 
