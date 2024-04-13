@@ -152,12 +152,15 @@ function QuizDetails() {
           </div>
           <div className="col-9">{quiz.shuffleAnswers ? "Yes" : "No"}</div>
         </div>
-        <div className="row">
-          <div className="col-3">
-            <strong className="float-right">Time Limit</strong>
+        {quiz.isTimeLimited && (
+          <div className="row">
+            <div className="col-3">
+              <strong className="float-right">Time Limit</strong>
+            </div>
+            <div className="col-9">{quiz.timeLimit}</div>
           </div>
-          <div className="col-9">{quiz.timeLimit}</div>
-        </div>
+        )}
+
         <div className="row">
           <div className="col-3">
             <strong className="float-right">Multiple Attempts</strong>
@@ -170,7 +173,7 @@ function QuizDetails() {
           </div>
           <div className="col-9">{quiz.showCorrectAnswers ? "Yes" : "No"}</div>
         </div>
-        
+
         {quiz.showCorrectAnswers && (
           <div className="row">
             <div className="col-3">

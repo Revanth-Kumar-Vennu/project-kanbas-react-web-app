@@ -10,6 +10,8 @@ import "../../index.css";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { set } from "date-fns";
+
 
 function DetailsEditor() {
   const dispatch = useDispatch();
@@ -21,18 +23,19 @@ function DetailsEditor() {
 
   const handleSave = () => {
     console.log("quiz", quiz);
-    navigate(`/Kanbas/Courses/${courseId}/Quizzes/${quizId}`);
+  
     client.updateQuiz(quiz).then(() => {
       dispatch(setQuiz(quiz));
     });
+    navigate(`/Kanbas/Courses/${courseId}/Quizzes/${quizId}`);
   };
 
   const handleSaveAndPublish = () => {
     console.log("quiz", quiz);
+    client.updateQuiz({...quiz, isPublished: true}).then(() => {
+      // dispatch(setQuiz(quiz));
+    });
     navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
-    // client.updateQuiz(quiz).then(() => {
-    //   dispatch(setQuiz(quiz));
-    // });
   };
 
   useEffect(() => {
@@ -47,10 +50,12 @@ function DetailsEditor() {
     setDescription(newDescription);
     dispatch(setQuiz({ ...quiz, description: newDescription }));
   };
-  const formatDate = (dateString: any) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString(); // You can adjust the date format as per your requirement
+  
+  const formatDate = (date: string) => {
+    return date.split("T")[0];
   };
+  
+
 
   // Define custom toolbar options for font size and color
   const modules = {
@@ -190,8 +195,13 @@ function DetailsEditor() {
               onChange={(e) =>
                 dispatch(setQuiz({ ...quiz, isTimeLimited: e.target.checked }))
               }
+              
             />
-            &nbsp;<span>Time Limit</span>
+            &nbsp; &nbsp;
+            <span>Time Limit</span>
+          { quiz.isTimeLimited && ( 
+            <>
+          
             <input
               type="number"
               style={{ width: "5%", marginLeft: "5%" }}
@@ -199,8 +209,12 @@ function DetailsEditor() {
               onChange={(e) =>
                 dispatch(setQuiz({ ...quiz, timeLimit: e.target.value }))
               }
+              
             />
             Minutes
+            </>)
+}
+           
             <br />
             <br />
             <input
@@ -265,7 +279,7 @@ function DetailsEditor() {
             {quiz.showCorrectAnswers && (
               <input
                 type="date"
-                value={quiz.correctAnswersDate}
+                value={formatDate(quiz.correctAnswersDate)}
                 className="form-control"
                 style={{ width: "50%" }}
                 onChange={(e) =>
@@ -309,9 +323,9 @@ function DetailsEditor() {
                 <div>
                   <input
                     type="date"
-                    value={quiz.dueDate}
+                    value={formatDate(quiz.dueDate)}
                     className="form-control"
-                    min={quiz.availableDate}
+                    min={formatDate(quiz.availableDate)}
                     onChange={(e) => {
                       dispatch(setQuiz({ ...quiz, dueDate: e.target.value }));
                     }}
@@ -328,7 +342,7 @@ function DetailsEditor() {
                     <input
                       id="available-from"
                       type="date"
-                      value={quiz.availableDate}
+                      value={formatDate(quiz.availableDate)}
                       className="form-control"
                       onChange={(e) =>
                         dispatch(
@@ -347,8 +361,8 @@ function DetailsEditor() {
                     <input
                       id="until"
                       type="date"
-                      value={quiz.untilDate}
-                      min={quiz.availableDate}
+                      value={formatDate(quiz.untilDate)}
+                      min={formatDate(quiz.availableDate)}
                       className="form-control"
                       onChange={(e) =>
                         dispatch(
@@ -380,7 +394,9 @@ function DetailsEditor() {
             Cancel
           </Link>
           <button
-            onClick={() => handleSaveAndPublish()}
+            onClick={() => {
+              dispatch(setQuiz({ ...quiz, isPublished: true}));
+              handleSaveAndPublish()}}
             className="btn  btn-light float-end"
           >
             Save & Publish
