@@ -1,0 +1,133 @@
+[{
+ 
+  "title": "Quiz Title",
+  "description": "Quiz Description",
+  "course": "6611cdf8f4fcf6fe33fef998",
+  "quizType": "Graded Quiz",
+  "points": 52,
+  "assignmentGroup": "Quizzes",
+  "shuffleAnswers": true,
+  "timeLimit": 20,
+  "multipleAttempts": false,
+  "showCorrectAnswers": true,
+  "accessCode": "",
+  "oneQuestionAtATime": true,
+  "webcamRequired": false,
+  "lockQuestionsAfterAnswering": false,
+  "dueDate": {
+    "$date": "2025-12-31T00:00:00.000Z"
+  },
+  "availableDate": {
+    "$date": "2025-12-01T00:00:00.000Z"
+  },
+  "untilDate": {
+    "$date": "2025-12-31T00:00:00.000Z"
+  },
+  "correctAnswersDate": {
+    "$date": "2025-12-31T00:00:00.000Z"
+  },
+  "isTimeLimited": true,
+  "isPublished": true,
+  "numberOfQuestions": 5,
+  "for": "Everyone"
+},
+{
+
+  "title": "Quiz Title 2",
+  "description": "Quiz Description 2",
+  "course": "6611cdf8f4fcf6fe33fef998",
+  "quizType": "Graded Quiz",
+  "points": 40,
+  "assignmentGroup": "Quizzes",
+  "shuffleAnswers": true,
+  "timeLimit": 20,
+  "multipleAttempts": false,
+  "showCorrectAnswers": true,
+  "accessCode": "",
+  "oneQuestionAtATime": true,
+  "webcamRequired": false,
+  "lockQuestionsAfterAnswering": false,
+  "dueDate": {
+    "$date": "2022-12-31T00:00:00.000Z"
+  },
+  "availableDate": {
+    "$date": "2022-12-01T00:00:00.000Z"
+  },
+  "untilDate": {
+    "$date": "2022-12-31T00:00:00.000Z"
+  },
+  "correctAnswersDate": {
+    "$date": "2022-12-31T00:00:00.000Z"
+  },
+  "isTimeLimited": true,
+  "isPublished": true,
+  "numberOfQuestions": 5,
+  "for": "Everyone"
+},
+{
+ 
+  "title": "Quiz Title 3",
+  "description": "Quiz Description 3",
+  "course": "6611cdf8f4fcf6fe33fef998",
+  "quizType": "Graded Quiz",
+  "points": 29,
+  "assignmentGroup": "Quizzes",
+  "shuffleAnswers": true,
+  "timeLimit": 20,
+  "multipleAttempts": false,
+  "showCorrectAnswers": true,
+  "accessCode": "",
+  "oneQuestionAtATime": true,
+  "webcamRequired": false,
+  "lockQuestionsAfterAnswering": false,
+  "dueDate": {
+    "$date": "2022-12-31T00:00:00.000Z"
+  },
+  "availableDate": {
+    "$date": "2022-12-01T00:00:00.000Z"
+  },
+  "untilDate": {
+    "$date": "2022-12-31T00:00:00.000Z"
+  },
+  "correctAnswersDate": {
+    "$date": "2022-12-31T00:00:00.000Z"
+  },
+  "isTimeLimited": true,
+
+  "isPublished": false,
+  "numberOfQuestions": 5,
+  "for": "Everyone"
+},
+{
+
+  "title": "Quiz Title 5",
+  "description": "Quiz Description 5",
+  "course": "6611cdf8f4fcf6fe33fef998",
+  "quizType": "Graded Quiz",
+  "points": 60,
+  "assignmentGroup": "Quizzes",
+  "shuffleAnswers": true,
+  "timeLimit": 20,
+  "multipleAttempts": false,
+  "showCorrectAnswers": true,
+  "accessCode": "",
+  "oneQuestionAtATime": true,
+  "webcamRequired": false,
+  "lockQuestionsAfterAnswering": false,
+  "dueDate": {
+    "$date": "2022-12-31T00:00:00.000Z"
+  },
+  "availableDate": {
+    "$date": "2022-12-01T00:00:00.000Z"
+  },
+  "untilDate": {
+    "$date": "2022-12-31T00:00:00.000Z"
+  },
+  "correctAnswersDate": {
+    "$date": "2022-12-31T00:00:00.000Z"
+  },
+  "isTimeLimited": true,
+  "isPublished": true,
+  "numberOfQuestions": 5,
+  "for": "Everyone"
+}]

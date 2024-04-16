@@ -7,23 +7,28 @@ import { FaBan, FaCheckCircle, FaEllipsisV } from "react-icons/fa";
 import NavigationTabs from "../Nav";
 import "react-quill/dist/quill.snow.css";
 import "../../index.css";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { Editor } from "@tinymce/tinymce-react";
 import { set } from "date-fns";
-
+import ReactQuill from "react-quill";
 
 function DetailsEditor() {
   const dispatch = useDispatch();
-  const [description, setDescription] = useState("");
+  
   const { quizId } = useParams();
   const { courseId } = useParams();
   const quiz = useSelector((state: KanbasState) => state.quizzesReducer.quiz);
+  const [description, setDescription] = useState(quiz.description);
   const navigate = useNavigate();
 
   const handleSave = () => {
     console.log("quiz", quiz);
+    // console.log("description", description);
   
+    // dispatch(setQuiz({ ...quiz, description: description }));
+    // console.log("quiz after dispatch", quiz);
+
     client.updateQuiz(quiz).then(() => {
       dispatch(setQuiz(quiz));
     });
@@ -32,7 +37,7 @@ function DetailsEditor() {
 
   const handleSaveAndPublish = () => {
     console.log("quiz", quiz);
-    client.updateQuiz({...quiz, isPublished: true}).then(() => {
+    client.updateQuiz({ ...quiz, isPublished: true }).then(() => {
       // dispatch(setQuiz(quiz));
     });
     navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
@@ -42,20 +47,19 @@ function DetailsEditor() {
     client.findQuizByID(quizId).then((quiz) => {
       console.log("quiz", quiz);
       dispatch(setQuiz(quiz));
-      setDescription(quiz.description);
+      // setDescription(quiz.description);
     });
   }, [dispatch, quizId]);
 
   const handleDescriptionChange = (newDescription: any) => {
     setDescription(newDescription);
+    console.log("newDescription", newDescription);
     dispatch(setQuiz({ ...quiz, description: newDescription }));
   };
-  
+
   const formatDate = (date: string) => {
     return date.split("T")[0];
   };
-  
-
 
   // Define custom toolbar options for font size and color
   const modules = {
@@ -123,11 +127,29 @@ function DetailsEditor() {
         <span>Quiz Instructions</span>
         <br />
         <br />
+        {/* <Editor
+          apiKey="ctsf9konqnxvij7fpkpaaemdrfbiuaruiy45n8gvi61sm8dy" // Replace with your TinyMCE API key
+          initialValue={quiz.description}
+          onEditorChange={(newDescription) =>
+            dispatch(setQuiz({ ...quiz, description: newDescription }))
+          }
+          init={{
+            height: 200,
+            menubar: true,
+            plugins: [
+              "advlist autolink lists link image charmap print preview anchor",
+              "searchreplace visualblocks code fullscreen",
+              "insertdatetime media table paste code help wordcount",
+            ],
+            toolbar:
+              "undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help | table",
+          }}
+        /> */}
         <ReactQuill
-          value={quiz.description}
+          value={description}
           onChange={handleDescriptionChange}
-          placeholder="Quiz Description"
           modules={modules}
+          style={{ height: "30vh",marginBottom: "5%"}}
         />
         <br />
         <br />
@@ -195,26 +217,22 @@ function DetailsEditor() {
               onChange={(e) =>
                 dispatch(setQuiz({ ...quiz, isTimeLimited: e.target.checked }))
               }
-              
             />
             &nbsp; &nbsp;
             <span>Time Limit</span>
-          { quiz.isTimeLimited && ( 
-            <>
-          
-            <input
-              type="number"
-              style={{ width: "5%", marginLeft: "5%" }}
-              value={quiz.timeLimit}
-              onChange={(e) =>
-                dispatch(setQuiz({ ...quiz, timeLimit: e.target.value }))
-              }
-              
-            />
-            Minutes
-            </>)
-}
-           
+            {quiz.isTimeLimited && (
+              <>
+                <input
+                  type="number"
+                  style={{ width: "5vw", marginLeft: "5%" }}
+                  value={quiz.timeLimit}
+                  onChange={(e) =>
+                    dispatch(setQuiz({ ...quiz, timeLimit: e.target.value }))
+                  }
+                />
+                Minutes
+              </>
+            )}
             <br />
             <br />
             <input
@@ -389,15 +407,16 @@ function DetailsEditor() {
           </button>
           <Link
             to={`/Kanbas/Courses/${courseId}/Quizzes`}
-            className="btn  btn-light float-end"
+            className="btn  btn-light ms-2 float-end"
           >
             Cancel
           </Link>
           <button
             onClick={() => {
-              dispatch(setQuiz({ ...quiz, isPublished: true}));
-              handleSaveAndPublish()}}
-            className="btn  btn-light float-end"
+              dispatch(setQuiz({ ...quiz, isPublished: true }));
+              handleSaveAndPublish();
+            }}
+            className="btn  btn-light ms-2 float-end"
           >
             Save & Publish
           </button>
