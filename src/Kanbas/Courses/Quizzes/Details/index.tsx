@@ -94,9 +94,16 @@ function QuizDetails() {
           </span>
         </button>{" "}
         &nbsp;&nbsp;
-        <button type="button" className="btn wd-module-button ">
-          {" "}
-          Preview{" "}
+        <button type="button" className="btn wd-module-button"
+        onClick={() => {
+          // Handle Edit action
+          navigate(
+            `/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}/Preview`
+          );
+        }}
+        >
+         
+          Preview
         </button>{" "}
         &nbsp;&nbsp;
         <button

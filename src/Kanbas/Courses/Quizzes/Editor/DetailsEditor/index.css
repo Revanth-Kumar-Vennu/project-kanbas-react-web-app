@@ -1,0 +1,178 @@
+.wd-assignments-btn-grp {
+    margin-left: 10px !important;
+    margin-right: 4%;
+    margin-top: 10px;
+  }
+  
+  .wd-weightage {
+    border-radius: 50px !important;
+    border-color: #8e8e8e !important;
+  }
+  
+  .wd-assignment-img {
+    width: 25px;
+    height: 25px;
+    margin-left: 25px;
+  }
+  
+  .wd-assignment-name {
+    margin-left: 25px;
+    color: black;
+    text-decoration: none;
+    margin-top: 30px;
+  }
+  
+  .wd-assignment-name:hover {
+    text-decoration: underline;
+  }
+  
+  .wd-assignment-text {
+    margin-left: 25px;
+    font-size: small;
+    color: #646464;
+  }
+  
+  .wd-check-symbol {
+    color: #4ab05e;
+    opacity: 0.5;
+  }
+  
+  .wd-assignment-div {
+    padding-top: 10px !important;
+  }
+  
+  .breadcrumb-item + .breadcrumb-item::before {
+    content: ">";
+  }
+  
+  .margin-left {
+    margin-left: auto;
+  }
+  
+  .float-right {
+    float: right;
+  }
+  
+  .padding-left-5 {
+    padding-left: 5px;
+  }
+  
+  .text-align-left {
+    text-align: left;
+  }
+  
+  .button-color {
+    color: #39944c;
+  }
+  
+  .wd-publish-button {
+    margin-top: 5px;
+    float: right;
+    background-color: white;
+    box-shadow: 0px 0px 0px 0px #000000;
+    border-width: 0px;
+    margin-right: 10px;
+  }
+  
+  .td-width-48 {
+    width: 48.5%;
+  }
+  
+  .margin-left-85 {
+    margin-left: 85px;
+  }
+  
+  .padding-zero {
+    padding-top: 10px;
+  }
+  
+  .wd-form-items {
+    margin-top: 20px;
+  }
+  
+  .set-table {
+    margin-left: 5px;
+  }
+  
+  .set-table-label {
+    margin-right: 50px;
+  }
+  
+  .left-margin {
+    margin-left: 50px;
+  }
+  
+  .add-button {
+    background-color: rgb(238, 236, 236);
+  }
+  
+  .wd-asign-table {
+    border: 1px solid #ccc;
+    border-radius: 2%;
+    width: 77%;
+  }
+  
+  .wd-assign-div-padding-top {
+    padding: 15px;
+  }
+  
+  .wd-assign-div-padding-left {
+    padding-left: 10px;
+  }
+  
+  .wd-assign-div-padding-right {
+    padding-right: 10px;
+  }
+  
+  .wd-assign-div-padding-bottom {
+    padding-bottom: 10px;
+  }
+  
+  .wd-edit-hr {
+    margin-top: 40px;
+  }
+  
+  .wd-save-div {
+    padding-bottom: 20px;
+  }
+  
+  .black-color {
+    color: #000000;
+  }
+  
+  .height {
+    height: 50px;
+  }
+  
+  .wd-edit-div {
+    margin-top: 10px;
+  }
+  
+  .wd-form-items > label {
+    float: right;
+  }
+  
+
+
+  .wd-assignment-list{
+    background-color: white !important;
+    margin-bottom: 0px !important;
+    border-left: 4px solid green !important;
+  }
+
+  .wd-assignment-list:hover{
+    background-color: #e3ffff !important;
+  }
+
+  .wd-modules{
+    border-radius: 0px;
+  }
+
+  .wd-assignment-header{
+    margin-bottom: 0px !important;
+    background-color: rgb(244, 244, 244) !important;
+    border: 1px solid rgb(215, 215, 215) !important;
+
+  }
+
+  
