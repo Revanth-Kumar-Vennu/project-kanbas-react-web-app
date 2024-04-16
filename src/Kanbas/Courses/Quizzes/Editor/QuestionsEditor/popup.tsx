@@ -2,12 +2,10 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedQuestion } from "../../questionsReducer";
 import "./index.css";
-import { Editor } from "@tinymce/tinymce-react";
 import { useState } from "react";
 import { FaTrash, FaPlus } from "react-icons/fa";
 import { KanbasState } from "../../../../store";
 import ReactQuill from "react-quill";
-
 
 function Popup({
   title,
@@ -18,11 +16,14 @@ function Popup({
   onSubmit: () => void;
   onCancel: () => void;
 }) {
-
   const dispatch = useDispatch();
 
   const selectedQuestion = useSelector(
     (state: KanbasState) => state.questionsReducer.selectedQuestion
+  );
+
+  const dummyQuestion = useSelector(
+    (state: KanbasState) => state.questionsReducer.dummyQuestion
   );
   const [choices, setChoices] = useState(selectedQuestion.choices);
   const [blanks, setBlanks] = useState(selectedQuestion.blanks);
@@ -129,14 +130,13 @@ function Popup({
             placeholder="Question Title"
             defaultValue={selectedQuestion.questionTitle}
             onChange={(e) => {
-                dispatch(
-                    setSelectedQuestion({
-                    ...selectedQuestion,
-                    questionTitle: e.target.value,
-                    })
-                );
-            }
-            }
+              dispatch(
+                setSelectedQuestion({
+                  ...selectedQuestion,
+                  questionTitle: e.target.value,
+                })
+              );
+            }}
           />
           &nbsp;&nbsp;
           <select
@@ -144,12 +144,12 @@ function Popup({
             className="form-select"
             aria-label="Default select example"
             onChange={(e) => {
-                dispatch(
-                    setSelectedQuestion({
-                    ...selectedQuestion,
-                    questionType: e.target.value,
-                    })
-                );
+              dispatch(
+                setSelectedQuestion({
+                  ...selectedQuestion,
+                  questionType: e.target.value,
+                })
+              );
             }}
             defaultValue={selectedQuestion.questionType}
           >
@@ -160,19 +160,19 @@ function Popup({
             ) : (
               <option value="Multiple Choice">Multiple Choice</option>
             )}
-            {selectedQuestion.questionType === "Fill in the blanks" ? (
-              <option value="Fill in the blanks" selected>
+            {selectedQuestion.questionType === "Fill In the Blank" ? (
+              <option value="Fill In the Blank" selected>
                 Fill in the blank
               </option>
             ) : (
-              <option value="Fill in the blanks">Fill in the blanks</option>
+              <option value="Fill In the Blank">Fill In the Blank</option>
             )}
-            {selectedQuestion.questionType === "True or False" ? (
-              <option value="True or False" selected>
-                True or False
+            {selectedQuestion.questionType === "True/False" ? (
+              <option value="True/False" selected>
+                True/False
               </option>
             ) : (
-              <option value="True or False">True or False</option>
+              <option value="True/False">True/False</option>
             )}
           </select>
           <div className="ms-auto">
@@ -206,27 +206,27 @@ function Popup({
               correct answer
             </p>
           )}
-          {selectedQuestion.questionType === "Fill in the blanks" && (
+          {selectedQuestion.questionType === "Fill In the Blank" && (
             <p>Enter your question and then enter the correct answer</p>
           )}
-          {selectedQuestion.questionType === "True or False" && (
+          {selectedQuestion.questionType === "True/False" && (
             <p>Enter your question and then select the correct answer</p>
           )}
           <strong>Question</strong>
           <ReactQuill
-          value={selectedQuestion.questionText}
-          onChange={(content) => {
-            dispatch(
-              setSelectedQuestion({
-                ...selectedQuestion,
-                questionText: content
-              })
-            );
-        }
-          }
-          modules={modules}
-          style={{ height: "20vh",marginBottom: "5%"}}
-        />
+            value={selectedQuestion.questionText}
+            placeholder="Enter your question here"
+            onChange={(content) => {
+              dispatch(
+                setSelectedQuestion({
+                  ...selectedQuestion,
+                  questionText: content,
+                })
+              );
+            }}
+            modules={modules}
+            style={{ height: "15vh", marginBottom: "5%" }}
+          />
           {/* <Editor
             apiKey="ctsf9konqnxvij7fpkpaaemdrfbiuaruiy45n8gvi61sm8dy" // Replace with your TinyMCE API key
             initialValue={selectedQuestion.questionText}
@@ -301,7 +301,7 @@ function Popup({
             </ul>
           )}
 
-          {selectedQuestion.questionType === "Fill in the blanks" && (
+          {selectedQuestion.questionType === "Fill In the Blank" && (
             <ul className="answer-list">
               {selectedQuestion.blanks.map((answer: any, index: any) => (
                 <li key={index} style={{ marginBottom: "20px" }}>
@@ -332,7 +332,7 @@ function Popup({
             </ul>
           )}
 
-          {selectedQuestion.questionType === "True or False" && (
+          {selectedQuestion.questionType === "True/False" && (
             <div className="d-flex">
               &nbsp;&nbsp;
               <label>
@@ -375,9 +375,9 @@ function Popup({
             </div>
           )}
           {(selectedQuestion.questionType === "Multiple Choice" ||
-            selectedQuestion.questionType === "Fill in the blanks") && (
+            selectedQuestion.questionType === "Fill In the Blank") && (
             <div className="ms-auto">
-              {selectedQuestion.questionType === "Fill in the blanks" && (
+              {selectedQuestion.questionType === "Fill In the Blank" && (
                 <button
                   className="btn btn-danger me-2 wd-add-module"
                   onClick={() => handleAddBlank()}
@@ -401,12 +401,21 @@ function Popup({
           <div>
             <button
               className="btn btn-secondary wd-module-button"
-              onClick={() => onSubmit()}
+              onClick={() => {
+                dispatch(setSelectedQuestion(dummyQuestion));
+                onSubmit();
+              }}
             >
-              Update Question
+              {title === "Add Question" ? "Add Question" : "Update Question"}
             </button>
             &nbsp;&nbsp;
-            <button className="btn btn-danger" onClick={() => onCancel()}>
+            <button
+              className="btn btn-danger"
+              onClick={() => {
+                dispatch(setSelectedQuestion(dummyQuestion));
+                onCancel();
+              }}
+            >
               Cancel
             </button>
           </div>

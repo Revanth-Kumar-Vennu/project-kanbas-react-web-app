@@ -24,6 +24,7 @@ const initialState = {
     correctAnswersDate: "2022-12-31",
     isTimeLimited: true,
     isPublished: true,
+    questions: [],
 
   },
   quiz:{
@@ -48,6 +49,7 @@ const initialState = {
     correctAnswersDate: "2022-12-31",
     isTimeLimited: true,
     isPublished: true,
+    questions: [],
   },
   dummyQuiz: {
     _id: "123",
@@ -71,6 +73,7 @@ const initialState = {
     correctAnswersDate: "2022-12-31",
     isTimeLimited: true,
     isPublished: true,
+    questions: []
   },
 };
 
@@ -96,6 +99,7 @@ const quizzesSlice = createSlice({
       );
     },
     updateQuiz: (state, action) => {
+      console.log("action.payload in update quiz", action.payload);
       state.quizzes = state.quizzes.map((quiz) => {
         if (quiz._id === action.payload._id) {
           return action.payload;

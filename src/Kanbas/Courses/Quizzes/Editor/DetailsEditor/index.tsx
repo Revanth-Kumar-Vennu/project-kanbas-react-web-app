@@ -9,8 +9,6 @@ import "react-quill/dist/quill.snow.css";
 import "../../index.css";
 import "react-quill/dist/quill.snow.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Editor } from "@tinymce/tinymce-react";
-import { set } from "date-fns";
 import ReactQuill from "react-quill";
 
 function DetailsEditor() {
@@ -23,12 +21,6 @@ function DetailsEditor() {
   const navigate = useNavigate();
 
   const handleSave = () => {
-    console.log("quiz", quiz);
-    // console.log("description", description);
-  
-    // dispatch(setQuiz({ ...quiz, description: description }));
-    // console.log("quiz after dispatch", quiz);
-
     client.updateQuiz(quiz).then(() => {
       dispatch(setQuiz(quiz));
     });
@@ -36,16 +28,14 @@ function DetailsEditor() {
   };
 
   const handleSaveAndPublish = () => {
-    console.log("quiz", quiz);
     client.updateQuiz({ ...quiz, isPublished: true }).then(() => {
-      // dispatch(setQuiz(quiz));
+      dispatch(setQuiz({ ...quiz, isPublished: true }));
     });
     navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
   };
 
   useEffect(() => {
     client.findQuizByID(quizId).then((quiz) => {
-      console.log("quiz", quiz);
       dispatch(setQuiz(quiz));
       // setDescription(quiz.description);
     });
@@ -53,7 +43,6 @@ function DetailsEditor() {
 
   const handleDescriptionChange = (newDescription: any) => {
     setDescription(newDescription);
-    console.log("newDescription", newDescription);
     dispatch(setQuiz({ ...quiz, description: newDescription }));
   };
 
@@ -149,7 +138,7 @@ function DetailsEditor() {
           value={description}
           onChange={handleDescriptionChange}
           modules={modules}
-          style={{ height: "30vh",marginBottom: "5%"}}
+          style={{ height: "20vh",marginBottom: "5%"}}
         />
         <br />
         <br />

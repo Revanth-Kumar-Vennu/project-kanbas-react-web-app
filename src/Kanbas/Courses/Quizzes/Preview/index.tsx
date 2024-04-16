@@ -13,7 +13,7 @@ function PreviewEditor() {
     _id: string;
     question: string;
     quizId: string;
-    questionType: "Fill in the Blanks" | "True/False" | "Multiple Choice";
+    questionType: "Fill In the Blank" | "True/False" | "Multiple Choice";
     points: number;
     blanks: string[];
     choices: Choice[];
@@ -138,7 +138,7 @@ function PreviewEditor() {
                 {currentQuestion.questionType === "Multiple Choice" &&
                   renderMultipleChoiceOptions(currentQuestion)}
 
-                {currentQuestion.questionType === "Fill in the Blanks" &&
+                {currentQuestion.questionType === "Fill In the Blank" &&
                   renderFillInTheBlanks(currentQuestion)}
               </div>
               <div className="question-navigation">

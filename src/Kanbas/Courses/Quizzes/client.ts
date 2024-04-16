@@ -1,5 +1,4 @@
 import axios from "axios";
-import exp from "constants";
 const API_BASE = process.env.REACT_APP_API_BASE_URL;
 const COURSES_API = `${API_BASE}/api/courses`;
 const QUIZZES_API = `${API_BASE}/api/quizzes`;
@@ -25,6 +24,7 @@ export const createQuiz = async (courseId: any, quiz: any) => {
 };
 
 export const updateQuiz = async (quiz: { _id: any }) => {
+  console.log("quiz inside update quiz cl", quiz);
   const response = await axios.put(`${QUIZZES_API}/${quiz._id}`, quiz);
   return response.data;
 };
@@ -40,7 +40,7 @@ export const findQuestionsForQuiz = async (quizId: any) => {
 };
 
 export const deleteQuestion = async (questionId: any) => {
-  const response = await axios.delete(`${QUIZZES_API}/questions/${questionId}`);
+  const response = await axios.delete(`${QUESTIONS_API}/${questionId}`);
   return response.data;
 };
 
@@ -49,6 +49,7 @@ export const createQuestion = async (quizId: any, question: any) => {
     `${QUIZZES_API}/${quizId}/questions`,
     question
   );
+  console.log("response", response.data);
   return response.data;
 };
 
@@ -61,7 +62,7 @@ export const updateQuestion = async (question: { _id: any }) => {
 };
 
 export const findQuestionByID = async (questionId: any) => {
-  const response = await axios.get(`${QUIZZES_API}/questions/${questionId}`);
+  const response = await axios.get(`${QUESTIONS_API}/${questionId}`);
   return response.data;
 };
 

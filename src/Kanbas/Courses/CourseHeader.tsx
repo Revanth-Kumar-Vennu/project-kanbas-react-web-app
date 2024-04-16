@@ -34,6 +34,12 @@ function CourseHeader({
     "Quizzes",
   ];
   const parts = location.split("/");
+  console.log("parts", parts);
+  if (parts.length >= 6) {
+    // Remove elements after index 5
+    parts.splice(6);
+  }
+  
   let inSubModule = false;
   let course_nav = "";
   // Get the last part of the URL
