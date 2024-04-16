@@ -64,3 +64,11 @@ export const findQuestionByID = async (questionId: any) => {
   const response = await axios.get(`${QUIZZES_API}/questions/${questionId}`);
   return response.data;
 };
+
+
+export const findQuestionByQuizID = async (quizId: any) => {
+  const response = await axios.get(`${QUIZZES_API}/${quizId}/questions`);
+  console.log("response", response.data);
+  return response.data;
+}
+
