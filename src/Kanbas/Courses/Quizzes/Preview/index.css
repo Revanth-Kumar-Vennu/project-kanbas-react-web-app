@@ -182,7 +182,7 @@
   /* Add any other styling you'd like */
 }
 
-/* index.css */
+
 .quiz-container {
   font-family: 'Arial', sans-serif;
   max-width: 800px;
@@ -193,18 +193,28 @@
   overflow: hidden;
 }
 
+.question-links-container{
+  font-family: 'Arial', sans-serif;
+  color: #b52828;
+  max-width: 800px;
+  background: #ffffff;
+  margin: 20px auto;
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+  overflow: hidden;
+}
 .quiz-header {
   color: #333;
   border-bottom: 1px solid #eaeaea;
 }
 
 .preview-notice {
-  width: 75%;
+  max-width: 800px;
   background: pink;
   border-color: #ffeeba;
   color: #856404;
   padding: 8px 16px;
-  margin: -16px -16px 16px -16px;
+  margin: 20px auto;
   text-align: center;
   font-size: 14px;
 }
@@ -315,4 +325,3 @@ label {
   }
 }
 
-/* You may need to add more responsive design code to handle different screen sizes */

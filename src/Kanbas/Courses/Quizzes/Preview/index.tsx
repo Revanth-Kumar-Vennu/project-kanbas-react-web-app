@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import * as client from "../client";
 import "./index.css";
 
 function PreviewEditor() {
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const navigate = useNavigate();
+  const { courseId, quizId } = useParams(); 
 
   type Question = {
     _id: string;
@@ -34,7 +37,6 @@ function PreviewEditor() {
       });
   }, []);
 
-  // Utility to handle rendering of True/False options
   const renderTrueFalseOptions = (question: Question) => (
     <div className="options-container">
       <input
@@ -54,7 +56,6 @@ function PreviewEditor() {
     </div>
   );
 
-  // Utility to handle rendering of Multiple Choice options
   const renderMultipleChoiceOptions = (question: Question) => (
     <div className="options-container">
       {question.choices.map((choice) => (
@@ -69,7 +70,6 @@ function PreviewEditor() {
     </div>
   );
 
-  // Utility to handle rendering of Fill in the Blanks
   const renderFillInTheBlanks = (question: Question) => (
     <div className="fill-blanks-container">
       {question.blanks.map((_, i) => (
@@ -97,6 +97,14 @@ function PreviewEditor() {
     setCurrentQuestionIndex((prevIndex) => Math.max(prevIndex - 1, 0));
   };
 
+  const renderQuestionLink = (question: Question, index: number) => {
+    return (
+      <div key={question._id} onClick={() => goToSelectedQuestion(index)}>
+        Question {index + 1}
+      </div>
+    );
+  };
+  
   const currentQuestion: Question = questions[currentQuestionIndex];
 
   return (
@@ -154,12 +162,20 @@ function PreviewEditor() {
         </div>
 
         <div className="quiz-footer">
-          <button className="edit-quiz-button">Keep Editing This Quiz</button>
+          <button className="edit-quiz-button" onClick={() => {
+            // Navigate back to the quiz details screen
+            navigate(
+              `/Kanbas/Courses/${courseId}/Quizzes/${quizId}`
+            );
+          }}
+          >Keep Editing This Quiz</button>
         </div>
       </div>
 
-      <div onClick={() => goToSelectedQuestion(1)}>
-        Question 2
+      
+      <div className="question-links-container">
+      <h2 style={{color:"black"}}>Questions</h2>
+        {questions.map((question, index) => renderQuestionLink(question, index))}
       </div>
     </>
   );
