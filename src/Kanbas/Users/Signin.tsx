@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { User } from "./client";
 import * as client from "./client";
@@ -14,14 +14,43 @@ export default function Signin() {
   });
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const checkAuthentication = async () => {
+      try {
+        const isAuthenticated = await client.isAuthenticated();
+        if (isAuthenticated) {
+          navigate("/Kanbas/Account/Profile");
+        }
+      } catch (error) {
+        
+      }
+    };
+
+    checkAuthentication();
+  }, [navigate]);
+
   const signin = async () => {
-    await client.signin(credentials);
-    navigate("/Kanbas/Account/Profile");
+    try {
+      await client.signin(credentials).then((response) => {
+        console.log("response", response);
+        navigate("/Kanbas/Account/Profile");
+      });
+      
+    } catch (err: any) {
+      setError(err.response.data.message);
+    }
   };
   return (
     <div className="container-fluid">
+      {error && (
+        <div className="alert alert-danger" role="alert">
+          {error}
+        </div>
+      )}
       <form
-        onSubmit={signin}
+       
         style={{
           display: "flex",
           flexDirection: "column",
@@ -60,7 +89,7 @@ export default function Signin() {
         <br />
         <div className="d-flex">
           <button
-            type="submit"
+            onClick={signin}
             className="btn btn-primary"
             disabled={!credentials.username || !credentials.password}
           >

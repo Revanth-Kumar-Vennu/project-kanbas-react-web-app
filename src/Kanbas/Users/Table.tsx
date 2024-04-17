@@ -30,6 +30,7 @@ export default function UserTable() {
     try {
       await client.deleteUser(user);
       setUsers(users.filter((u) => u._id !== user._id));
+      //
     } catch (err) {
       console.log(err);
     }

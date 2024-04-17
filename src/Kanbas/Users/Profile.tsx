@@ -13,37 +13,34 @@ export default function Profile() {
     _id: "",
   });
   const [success, setSuccess] = useState(false);
+
   const navigate = useNavigate();
   const fetchProfile = async () => {
     const account = await client.profile();
-    setProfile(account);
+    setProfile({...account, dob: account.dob.split('T')[0]});
   };
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+  const save = async () => {
+    await client.updateUser(profile);
+    setSuccess(true);
+  };
+
   const signout = async () => {
     await client.signout();
     navigate("/Kanbas/Account/Signin");
   };
-
-  const save = async () => {
-    await client.updateUser(profile);
-    setSuccess(true);
-   
-    fetchProfile();
-  };
-
-
-  useEffect(() => {
-    fetchProfile();
-  }, []);
   return (
-    
     <div
       className="container-fluid"
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
-    {success && 
-    <div className="alert alert-success" role="alert">
-      Profile updated successfully
-      </div>}
+      {success && (
+        <div className="alert alert-success" role="alert">
+          Profile updated successfully
+        </div>
+      )}
       <h1>Profile</h1>
       <Link to="/Kanbas/Account/Admin/Users">
         <button className="btn btn-warning w-100">Users</button>
