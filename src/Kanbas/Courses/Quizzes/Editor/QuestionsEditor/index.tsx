@@ -123,7 +123,7 @@ function QuestionsEditor() {
       setQuestions(questions.filter((question) => question._id !== questionId))
     );
   };
-
+ 
   useEffect(() => {
     const fetchQuizAndQuestions = async () => {
       try {

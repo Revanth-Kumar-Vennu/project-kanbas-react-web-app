@@ -4,7 +4,7 @@ import * as client from "../client";
 import "./index.css";
 
 function PreviewEditor() {
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const navigate = useNavigate();
   const { courseId, quizId } = useParams(); 
@@ -30,13 +30,53 @@ function PreviewEditor() {
     _id: string;
   };
 
+  // useEffect(() => {
+  //   client
+  //     .findQuestionByQuizID(quizId)
+  //     .then((questions) => {
+  //       setQuestions(questions);
+  //     });
+  // }, []);
+
+
   useEffect(() => {
-    client
-      .findQuestionByQuizID(quizId)
-      .then((questions) => {
-        setQuestions(questions);
-      });
+    const fetchQuizAndQuestions = async () => {
+      try {
+        const fetchedQuiz = await client.findQuizByID(quizId);
+  
+        const fetchedQuestions = await Promise.all(
+          fetchedQuiz.questions.map((questionId :Question ) =>
+            client.findQuestionByID(questionId)
+          )
+        );
+  
+        setQuestions(fetchedQuestions);
+      } catch (error) {
+        console.error("Error fetching quiz and questions:", error);
+      }
+    };
+  
+    fetchQuizAndQuestions();
   }, []);
+
+
+  // useEffect(() => {
+  //   const fetchQuizAndQuestions = async () => {
+  //     try {
+  //       const fetchedQuiz = await client.findQuizByID(quizId);
+
+  //       const fetchedQuestions = await Promise.all(
+  //         fetchedQuiz.questions.map((questionId: any) =>
+  //           client.findQuestionByID(questionId)
+  //         )
+  //       );
+  //       dispatch(setQuestions(fetchedQuestions));
+  //     } catch (error) {
+  //       console.error("Error fetching quiz and questions:", error);
+  //     }
+  //   };
+  //   fetchQuizAndQuestions();
+  // }, [dispatch, quizId]);
 
   const renderTrueFalseOptions = (question: Question) => (
     <div className="options-container">
@@ -131,7 +171,7 @@ function PreviewEditor() {
               </div>
 
               <div style={{padding: "20px"}}>
-                <div>{currentQuestion.questionText}</div>
+                <div>{currentQuestion.questionText.replace(/<[^>]*>/g, '')}</div>
 
                 {currentQuestion.questionType === "True/False" &&
                   renderTrueFalseOptions(currentQuestion)}
@@ -183,3 +223,7 @@ function PreviewEditor() {
 }
 
 export default PreviewEditor;
+function dispatch(arg0: void) {
+  throw new Error("Function not implemented.");
+}
+
