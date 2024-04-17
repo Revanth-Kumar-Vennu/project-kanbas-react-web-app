@@ -17,7 +17,7 @@ export default function Profile() {
   const navigate = useNavigate();
   const fetchProfile = async () => {
     const account = await client.profile();
-    setProfile({...account, dob: account.dob.split('T')[0]});
+    setProfile(account);
   };
   useEffect(() => {
     fetchProfile();
@@ -86,7 +86,7 @@ export default function Profile() {
           <label className="form-label">Date of Birth</label>
           <input
             className="form-control"
-            value={profile.dob}
+            value={profile?.dob?.split("T")[0]}
             type="date"
             onChange={(e) => setProfile({ ...profile, dob: e.target.value })}
           />

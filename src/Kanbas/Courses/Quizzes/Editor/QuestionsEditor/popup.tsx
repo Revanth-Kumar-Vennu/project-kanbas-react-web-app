@@ -183,6 +183,8 @@ function Popup({
                 type="number"
                 className="form-control"
                 placeholder="Points"
+                min={0}
+                max={100}
                 value={selectedQuestion.points}
                 onChange={(e) => {
                   dispatch(
@@ -225,7 +227,7 @@ function Popup({
               );
             }}
             modules={modules}
-            style={{ height: "15vh", marginBottom: "5%" }}
+            style={{ height: "15vh", marginBottom: "50px" }}
           />
           {/* <Editor
             apiKey="ctsf9konqnxvij7fpkpaaemdrfbiuaruiy45n8gvi61sm8dy" // Replace with your TinyMCE API key
@@ -254,7 +256,7 @@ function Popup({
         </div>
         <br />
 
-        <div style={{ margin: "1%" }}>
+        <div style={{ marginTop: "10px" }}>
           <strong>Answers</strong>
           <br />
 

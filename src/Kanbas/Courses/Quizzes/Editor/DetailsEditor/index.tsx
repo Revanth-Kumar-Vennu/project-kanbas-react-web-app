@@ -215,6 +215,8 @@ function DetailsEditor() {
                   type="number"
                   style={{ width: "5vw", marginLeft: "5%" }}
                   value={quiz.timeLimit}
+                  min={1}
+                  max={240}
                   onChange={(e) =>
                     dispatch(setQuiz({ ...quiz, timeLimit: e.target.value }))
                   }
