@@ -11,7 +11,8 @@ function PreviewEditor() {
 
   type Question = {
     _id: string;
-    question: string;
+    questionTitle: string;
+    questionText: string;
     quizId: string;
     questionType: "Fill In the Blank" | "True/False" | "Multiple Choice";
     points: number;
@@ -31,7 +32,7 @@ function PreviewEditor() {
 
   useEffect(() => {
     client
-      .findQuestionByQuizID("6616b4301ef325501d61afdb")
+      .findQuestionByQuizID(quizId)
       .then((questions) => {
         setQuestions(questions);
       });
@@ -130,7 +131,7 @@ function PreviewEditor() {
               </div>
 
               <div style={{padding: "20px"}}>
-                <div>{currentQuestion.question}</div>
+                <div>{currentQuestion.questionText}</div>
 
                 {currentQuestion.questionType === "True/False" &&
                   renderTrueFalseOptions(currentQuestion)}
