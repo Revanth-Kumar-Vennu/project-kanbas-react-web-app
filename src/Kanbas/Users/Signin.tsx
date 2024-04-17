@@ -31,7 +31,8 @@ export default function Signin() {
     checkAuthentication();
   }, [navigate]);
 
-  const signin = async () => {
+  const signin = async (e:any) => {
+    e.preventDefault();
     try {
       await client.signin(credentials).then((response) => {
         console.log("response", response);
