@@ -8,6 +8,7 @@ function PreviewEditor() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const navigate = useNavigate();
   const { courseId, quizId } = useParams(); 
+  const [title, setTitle] = useState("");
 
   type Question = {
     _id: string;
@@ -43,6 +44,7 @@ function PreviewEditor() {
     const fetchQuizAndQuestions = async () => {
       try {
         const fetchedQuiz = await client.findQuizByID(quizId);
+        setTitle(fetchedQuiz.title);
   
         const fetchedQuestions = await Promise.all(
           fetchedQuiz.questions.map((questionId :Question ) =>
@@ -102,7 +104,8 @@ function PreviewEditor() {
       {question.choices.map((choice) => (
         <div key={choice._id} className="choice">
           <input
-            type="checkbox"
+            type="radio"
+            name={question._id}
             id={`${question._id}-${choice._id}`}
           />
           <label htmlFor={`${question._id}-${choice._id}`}>{choice.text}</label>
@@ -118,6 +121,7 @@ function PreviewEditor() {
           key={i}
           type="text"
           value={""}
+          placeholder="Enter your answer here"
           onChange={(e) => console.log(e.target.value)}
         />
       ))}
@@ -140,7 +144,7 @@ function PreviewEditor() {
 
   const renderQuestionLink = (question: Question, index: number) => {
     return (
-      <div key={question._id} onClick={() => goToSelectedQuestion(index)}>
+      <div key={question._id} className="questions-list" onClick={() => goToSelectedQuestion(index)}>
         Question {index + 1}
       </div>
     );
@@ -151,7 +155,7 @@ function PreviewEditor() {
   return (
     <>
       <div className="quiz-header">
-        <h1>Q1 - HTML</h1><br />
+        <h1>{title}</h1><br />
         <div className="preview-notice">
           This is a preview of the published version of the quiz
         </div>
@@ -198,7 +202,7 @@ function PreviewEditor() {
               </div>
             </div>
           ) : (
-            <div>Loading...</div>
+            <div>No Questions Added to this Quiz</div>
           )}
         </div>
 

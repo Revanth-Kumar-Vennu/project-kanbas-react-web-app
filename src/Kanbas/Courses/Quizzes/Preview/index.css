@@ -325,3 +325,6 @@ label {
   }
 }
 
+.questions-list{
+  cursor: pointer;
+}
