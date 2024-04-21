@@ -1,6 +1,10 @@
 import * as client from "./client";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { KanbasState } from "../store";
+import { useDispatch, useSelector } from "react-redux";
+import {  setUserAuth } from "./userReducer";
+
 export default function Profile() {
   const [profile, setProfile] = useState({
     username: "",
@@ -13,11 +17,22 @@ export default function Profile() {
     _id: "",
   });
   const [success, setSuccess] = useState(false);
+  // const currentUser = useSelector(
+  //   (state: KanbasState) => state.usersReducer.currentUser
+  // );
 
+  const dispatch= useDispatch();
   const navigate = useNavigate();
+
+  const userAuth = useSelector(
+    (state: KanbasState) => state.usersReducer.authenticated
+  );
+
   const fetchProfile = async () => {
     const account = await client.profile();
     setProfile(account);
+    console.log(account)
+    // dispatch(setUser(account));
   };
   useEffect(() => {
     fetchProfile();
@@ -29,6 +44,7 @@ export default function Profile() {
 
   const signout = async () => {
     await client.signout();
+    dispatch(setUserAuth(false));
     navigate("/Kanbas/Account/Signin");
   };
   return (
@@ -53,6 +69,7 @@ export default function Profile() {
             value={profile.username}
             onChange={(e) =>
               setProfile({ ...profile, username: e.target.value })
+              
             }
           />
           <br />

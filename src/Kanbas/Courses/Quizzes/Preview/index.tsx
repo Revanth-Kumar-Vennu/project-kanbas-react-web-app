@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
+import { KanbasState } from "../../../store";
 import * as client from "../client";
 import "./index.css";
 
@@ -39,7 +41,11 @@ function PreviewEditor() {
   //     });
   // }, []);
 
+  const currentUserRole = useSelector( (state: KanbasState) => state.usersReducer.role )
 
+
+  const isAdminOrFaculty= (currentUserRole === "ADMIN") || (currentUserRole === "FACULTY");
+ 
   useEffect(() => {
     const fetchQuizAndQuestions = async () => {
       try {
@@ -156,9 +162,12 @@ function PreviewEditor() {
     <>
       <div className="quiz-header">
         <h1>{title}</h1><br />
+              {isAdminOrFaculty && (
         <div className="preview-notice">
           This is a preview of the published version of the quiz
         </div>
+      )}
+
       </div>
 
       <div className="quiz-container">
@@ -168,12 +177,18 @@ function PreviewEditor() {
               <div className="question-header">
                 <p className="question-text">
                   Question {currentQuestionIndex + 1}
+                  <div className="question-title">
+                {currentQuestion.questionTitle}
+              </div>
                 </p>
                 <div className="question-points">
                   {currentQuestion.points} pts
                 </div>
+              
               </div>
-
+              
+            
+              
               <div style={{padding: "20px"}}>
                 <div>{currentQuestion.questionText.replace(/<[^>]*>/g, '')}</div>
 
@@ -206,7 +221,7 @@ function PreviewEditor() {
           )}
         </div>
 
-        <div className="quiz-footer">
+        {/* <div className="quiz-footer">
           <button className="edit-quiz-button" onClick={() => {
             // Navigate back to the quiz details screen
             navigate(
@@ -214,7 +229,32 @@ function PreviewEditor() {
             );
           }}
           >Keep Editing This Quiz</button>
-        </div>
+        </div> */}
+
+<div className="quiz-footer">
+  {isAdminOrFaculty ? (
+    <button 
+      className="edit-quiz-button" 
+      onClick={() => {
+        navigate(`/Kanbas/Courses/${courseId}/Quizzes/${quizId}`);
+      }}
+    >
+      Keep Editing This Quiz
+    </button>
+  ) : (
+    <button 
+      className="submit-quiz-button" 
+      onClick={() => {
+        
+        alert("Quiz submitted!");
+        navigate(`/Kanbas/Courses/${courseId}/Quizzes`)
+      }}
+    >
+      Submit Quiz
+    </button>
+  )}
+</div>
+
       </div>
 
       

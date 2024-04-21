@@ -6,12 +6,16 @@ import { KanbasState } from "../../../store";
 import { useEffect } from "react";
 import { setQuiz, updateQuiz } from "../quizzesReducer";
 import * as client from "../client";
-
+import "./index.css";
 function QuizDetails() {
   const { quizId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { courseId } = useParams();
+  const currentUserRole = useSelector( (state: KanbasState) => state.usersReducer.role )
+
+
+  const isAdminOrFaculty= (currentUserRole === "ADMIN") || (currentUserRole === "FACULTY") || (currentUserRole === "user");
 
   function formatDate(inputDateString: string): string {
     // Create a new Date object using the input date string
@@ -69,7 +73,7 @@ function QuizDetails() {
 
   return (
     <div style={{ marginRight: 55 }}>
-      <div className="d-flex justify-content-end">
+      {/* <div className="d-flex justify-content-end">
         <button
           type="button"
           onClick={() => handlePublish(quiz)}
@@ -129,9 +133,74 @@ function QuizDetails() {
           &nbsp;&nbsp;
           <FaEllipsisV className="fas fa-ellipsis-v black-color" />
         </button>
-      </div>
+      </div> */}
+{isAdminOrFaculty && (
+  <div className="d-flex justify-content-end">
+    <button
+      type="button"
+      onClick={() => handlePublish(quiz)}
+      style={
+        !quiz.isPublished
+          ? { background: "rgb(2, 128, 2)" }
+          : { background: "rgba(200, 19, 19)" }
+      }
+      className=" btn btn-light"
+    >
+      {quiz.isPublished ? (
+        <FaBan style={{ color: "white" }} className="fas fa-ban" />
+      ) : (
+        <FaCheckCircle
+          style={{ color: "white" }}
+          className="fas fa-check-circle"
+        />
+      )}
 
-      <hr />
+      <span style={{ color: "white" }}>
+        <b> {quiz.isPublished ? "Unpublish" : "Publish"} </b>
+      </span>
+    </button>{" "}
+    &nbsp;&nbsp;
+    <button
+      type="button"
+      className="btn wd-module-button"
+      onClick={() => {
+        // Handle Edit action
+        navigate(
+          `/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}/Preview`
+        );
+      }}
+    >
+      Preview
+    </button>{" "}
+    &nbsp;&nbsp;
+    <button
+      type="button"
+      className="btn wd-module-button "
+      onClick={() => {
+        // Handle Edit action
+        navigate(
+          `/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}/edit/DetailsEditor`
+        );
+      }}
+    >
+      {" "}
+      <FaPencilAlt
+        style={{ color: "grey" }}
+        className="fas fa-check-circle button-color"
+      />{" "}
+      Edit{" "}
+    </button>{" "}
+    &nbsp;&nbsp;
+    <button type="button" className="btn wd-module-button ">
+      {" "}
+      &nbsp;&nbsp;
+      <FaEllipsisV className="fas fa-ellipsis-v black-color" />
+    </button>
+    <hr />
+  </div>
+)}
+
+    
       <div>
         <h2>{quiz.title}</h2>
         <br />
@@ -236,6 +305,20 @@ function QuizDetails() {
           </tbody>
         </table>
       </div>
+
+      {!isAdminOrFaculty && (
+ <div className="start-quiz-container">
+    <button
+      className="start-quiz-button"
+      onClick={() => {
+        navigate(`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}/Preview`);
+      }}
+    >
+      Start Quiz
+    </button>
+  </div>
+)}
+
     </div>
   );
 }

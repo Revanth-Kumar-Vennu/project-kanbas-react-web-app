@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { User } from "./client";
 import * as client from "./client";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { setUser, setUserAuth } from "./userReducer";
+import { useDispatch } from "react-redux";
+
 export default function Signin() {
   const [credentials, setCredentials] = useState<User>({
     _id: "",
@@ -10,21 +13,22 @@ export default function Signin() {
     password: "",
     firstName: "",
     lastName: "",
-    role: "USER",
+    role: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const [error, setError] = useState("");
-
+  const dispatch = useDispatch();
   useEffect(() => {
     const checkAuthentication = async () => {
       try {
         const isAuthenticated = await client.isAuthenticated();
         if (isAuthenticated) {
+          
           navigate("/Kanbas/Account/Profile");
         }
       } catch (error) {
-        
+        // alert("user name or password incorrect");
       }
     };
 
@@ -35,12 +39,16 @@ export default function Signin() {
     e.preventDefault();
     try {
       await client.signin(credentials).then((response) => {
-        console.log("response", response);
+         console.log("response", response);
+        // console.log("****************")
+        dispatch(setUser(response.role));
+        dispatch(setUserAuth(true));
         navigate("/Kanbas/Account/Profile");
       });
       
     } catch (err: any) {
-      setError(err.response.data.message);
+      console.log(err)
+      // setError(err.response.data.message);
     }
   };
   return (
@@ -109,3 +117,7 @@ export default function Signin() {
     </div>
   );
 }
+function dispatch(arg0: { payload: any; type: "users/setUser"; }) {
+  throw new Error("Function not implemented.");
+}
+

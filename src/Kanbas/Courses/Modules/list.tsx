@@ -21,7 +21,10 @@ import {
 import { KanbasState } from "../../store";
 import * as client from "./client";
 
+
 function ModuleList() {
+
+  
   const { courseId } = useParams();
   const moduleList = useSelector(
     (state: KanbasState) => state.modulesReducer.modules
@@ -32,6 +35,11 @@ function ModuleList() {
   const dummyModule = useSelector(
     (state: KanbasState) => state.modulesReducer.dummyModule
   );
+
+  const currentUserRole = useSelector( (state: KanbasState) => state.usersReducer.role )
+
+
+  const isAdminOrFaculty= (currentUserRole === "ADMIN") || (currentUserRole === "FACULTY") ;
 
   const dispatch = useDispatch();
   const [selectedModule, setSelectedModule] = useState(moduleList[0]);
@@ -77,33 +85,39 @@ function ModuleList() {
         <button className="btn btn-secondary me-2 wd-module-button">
           View Progress
         </button>
-        <div className="dropdown me-1">
-          <button
-            className="btn btn-secondary dropdown-toggle wd-module-button"
-            type="button"
-            id="dropdownMenuButton"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <FaCheckCircle className="text-success" /> Publish All
-          </button>
-          <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <li>Publish All</li>
-            <li>Unpublish All</li>
-          </ul>
-        </div>
-        <button
-          className="btn btn-danger me-2"
-          onClick={() => {
-            setShowPopup(true);
-            setPopupTitle("Add Module");
-          }}
-        >
-          <FaPlus className="fas fa-plus me-2" /> Module
-        </button>
-        <button className="btn btn-secondary me-2 wd-module-button">
-          <FaEllipsisV className="float-end" />
-        </button>
+
+        {isAdminOrFaculty ? (
+  <>
+    <div className="dropdown me-1">
+      <button
+        className="btn btn-secondary dropdown-toggle wd-module-button"
+        type="button"
+        id="dropdownMenuButton"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <FaCheckCircle className="text-success" /> Publish All
+      </button>
+      <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li>Publish All</li>
+        <li>Unpublish All</li>
+      </ul>
+    </div>
+    <button
+      className="btn btn-danger me-2"
+      onClick={() => {
+        setShowPopup(true);
+        setPopupTitle("Add Module");
+      }}
+    >
+      <FaPlus className="fas fa-plus me-2" /> Module
+    </button>
+    <button className="btn btn-secondary me-2 wd-module-button">
+      <FaEllipsisV className="float-end" />
+    </button>
+  </>
+) : null}
+      
       </div>
       <hr />
       {showPopup && (
@@ -133,20 +147,26 @@ function ModuleList() {
                     {module.name}
                     <span className="float-end">
                       <FaCheckCircle className="text-success" />
-                      <FaPlus className="wd-dots ms-2" />
+                     
+                      {isAdminOrFaculty && (
+                              <>
+                               <FaPlus className="wd-dots ms-2" />
                       <FaEllipsisV className=" wd-dots ms-2" />
-                      <FaEdit
-                        className=" wd-dots ms-2"
-                        onClick={() => {
-                          setShowPopup(true);
-                          dispatch(setModule(module));
-                          setPopupTitle("Edit Module");
-                        }}
-                      />
-                      <FaTrash
-                        className="wd-dots ms-2"
-                        onClick={() => handleDeleteModule(module?._id)}
-                      />
+                                <FaEdit
+                                  className=" wd-dots ms-2"
+                                  onClick={() => {
+                                    setShowPopup(true);
+                                    dispatch(setModule(module));
+                                    setPopupTitle("Edit Module");
+                                  }}
+                                />
+                                <FaTrash
+                                  className="wd-dots ms-2"
+                                  onClick={() => handleDeleteModule(module?._id)}
+                                />
+                              </>
+                            )}
+
                     </span>
                     <br />
                   </div>
@@ -180,3 +200,6 @@ function ModuleList() {
   );
 }
 export default ModuleList;
+
+
+

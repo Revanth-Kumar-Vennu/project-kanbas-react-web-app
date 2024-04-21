@@ -5,8 +5,8 @@ import Courses from "./Courses";
 import QuickNav from "./QuickNav";
 import KanbasQuickNav from "./KanbasQuickNav";
 import { useState, useEffect } from "react";
-import store from "./store";
-import { Provider } from "react-redux";
+import store, { KanbasState } from "./store";
+import { Provider, useSelector } from "react-redux";
 import axios from "axios";
 import Account from "./Account";
 
@@ -20,6 +20,7 @@ function Kanbas() {
     const response = await axios.get(COURSES_API);
     setCourses(response.data);
   };
+  
   useEffect(() => {
     findAllCourses();
   }, []);
@@ -79,7 +80,7 @@ function Kanbas() {
           </div>
           <div style={{ flexGrow: 1 }} className="wd-main-div">
             <Routes>
-              <Route path="/" element={<Navigate to="Dashboard" />} />
+              <Route path="/" element={<Navigate to="Account" />} />
               <Route path="/Account/*" element={<Account />} />
               <Route
                 path="Dashboard"

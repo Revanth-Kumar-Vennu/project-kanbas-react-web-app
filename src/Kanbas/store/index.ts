@@ -3,11 +3,16 @@ import modulesReducer from "../Courses/Modules/reducer";
 import assignmentsReducer from "../Courses/Assignments/assignmentsReducer";
 import quizzesReducer from "../Courses/Quizzes/quizzesReducer";
 import questionsReducer from "../Courses/Quizzes/questionsReducer";
+import usersReducer from "../Users/userReducer";
 export interface KanbasState {
   modulesReducer: {
     dummyModule: any;
     modules: any[];
     module: any;
+  };
+  usersReducer: {
+    role: any
+    authenticated: boolean
   };
   assignmentsReducer: {
     dummyAssignment: any;
@@ -33,7 +38,8 @@ const store = configureStore({
     modulesReducer,
     assignmentsReducer,
     quizzesReducer,
-    questionsReducer
+    questionsReducer,
+    usersReducer,
   }
 });
 

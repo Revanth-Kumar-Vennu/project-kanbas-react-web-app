@@ -1,3 +1,5 @@
+
+
 import React, { useEffect, useState } from "react";
 import {
   FaCaretDown,
@@ -17,6 +19,7 @@ import {
   setSelectedAssignment,
   setAssignments,
 } from "./assignmentsReducer";
+
 function Assignments() {
   const { courseId } = useParams();
   const [showConfirm, setShowConfirm] = useState(false);
@@ -27,18 +30,26 @@ function Assignments() {
     (state: KanbasState) => state.assignmentsReducer.selectedAssignment
   );
 
+  const currentUserRole = useSelector( (state: KanbasState) => state.usersReducer.role )
+
+  
+
+  const isAdminOrFaculty= (currentUserRole === "ADMIN") || (currentUserRole === "FACULTY");
+
   const dispatch = useDispatch();
   useEffect(() => {
     client
       .findAssignmentForCourse(courseId)
       .then((modules) => dispatch(setAssignments(modules)));
   }, [courseId, dispatch]);
+
   const handleDelete = (assignment_id: string) => {
     client.deleteAssignment(assignment_id).then(() => {
       dispatch(deleteAssignment(assignment_id));
       setShowConfirm(false);
     });
   };
+
   return (
     <div style={{ marginRight: 55 }}>
       <div className="d-flex  mb-3 wd-module-buttons-group">
@@ -50,21 +61,22 @@ function Assignments() {
             aria-label="Search"
           />
         </div>
-        <div className="ms-auto">
-          <button className="btn btn-secondary me-2 wd-module-button">
-            <FaPlus className="fas fa-plus me-2" /> Group
-          </button>
-
-          <Link to={`/Kanbas/Courses/${courseId}/Assignments/new`}>
-            {" "}
-            <button className="btn btn-danger me-2 wd-add-module">
-              <FaPlus className="fas fa-plus me-2" /> Assignment
-            </button>{" "}
-          </Link>
-          <button className="btn btn-secondary me-2 wd-module-button">
-            <FaEllipsisV className="fas fa-ellipsis-v" />
-          </button>
-        </div>
+        
+        {isAdminOrFaculty && (
+          <div className="ms-auto">
+            <button className="btn btn-secondary me-2 wd-module-button">
+              <FaPlus className="fas fa-plus me-2" /> Group
+            </button>
+            <Link to={`/Kanbas/Courses/${courseId}/Assignments/new`}>
+              <button className="btn btn-danger me-2 wd-add-module">
+                <FaPlus className="fas fa-plus me-2" /> Assignment
+              </button>
+            </Link>
+            <button className="btn btn-secondary me-2 wd-module-button">
+              <FaEllipsisV className="fas fa-ellipsis-v" />
+            </button>
+          </div>
+        )}
       </div>
       <hr className="wd-todo-hr" />
 
@@ -124,15 +136,21 @@ function Assignments() {
                 <img src={snip} className="wd-assignment-img" alt="" />
               </div>
               <div className="wd-assignment-div">
-                <Link
-                  className="wd-assignment-name"
-                  to={`/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`}
-                  onClick={() => {
-                    dispatch(setSelectedAssignment(assignment));
-                  }}
-                >
-                  {assignment.title}
-                </Link>
+              <Link
+                    className="wd-assignment-name"
+                    to={
+                      isAdminOrFaculty
+                        ? `/Kanbas/Courses/${courseId}/Assignments/${assignment._id}`
+                        : "#"
+                    }
+                    onClick={
+                      isAdminOrFaculty
+                        ? () => dispatch(setSelectedAssignment(assignment))
+                        : (e) => e.preventDefault()
+                    }
+                  >
+                    {assignment.title}
+                  </Link>
 
                 <br />
                 <p className="wd-assignment-text">
@@ -143,21 +161,24 @@ function Assignments() {
                   {assignment.points} pts
                 </p>
               </div>
-              <div className="ms-auto">
-                <FaCheckCircle className="fas fa-check-circle text-success wd-check-symbol  me-2" />
-                <FaEllipsisV className="fas fa-ellipsis-v  wd-dots  me-2" />
-                <FaTrash
-                  className="fas fa-trash wd-dots"
-                  onClick={() => {
-                    setShowConfirm(true);
-                    dispatch(setSelectedAssignment(assignment));
-                  }}
-                />
-              </div>
+              {isAdminOrFaculty && (
+                <div className="ms-auto">
+                  <FaPlus className="fas fa-plus me-2 wd-dots" />
+                  <FaEllipsisV className="fas fa-ellipsis-v wd-dots" />
+                  <FaTrash
+                    className="fas fa-trash wd-dots"
+                    onClick={() => {
+                      setShowConfirm(true);
+                      dispatch(setSelectedAssignment(assignment));
+                    }}
+                  />
+                </div>
+              )}
             </li>
           ))}
       </ul>
     </div>
   );
 }
+
 export default Assignments;
