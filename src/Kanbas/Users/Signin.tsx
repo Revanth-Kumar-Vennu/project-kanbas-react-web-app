@@ -27,8 +27,8 @@ export default function Signin() {
           
           navigate("/Kanbas/Account/Profile");
         }
-      } catch (error) {
-        // alert("user name or password incorrect");
+      } catch (error: any) {
+        setError(error.response.data.message);
       }
     };
 
@@ -47,8 +47,7 @@ export default function Signin() {
       });
       
     } catch (err: any) {
-      console.log(err)
-      // setError(err.response.data.message);
+      setError(err.response.data.message);
     }
   };
   return (
@@ -117,7 +116,5 @@ export default function Signin() {
     </div>
   );
 }
-function dispatch(arg0: { payload: any; type: "users/setUser"; }) {
-  throw new Error("Function not implemented.");
-}
+
 

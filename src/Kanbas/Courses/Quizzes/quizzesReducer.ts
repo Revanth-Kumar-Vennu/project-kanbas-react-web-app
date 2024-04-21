@@ -8,7 +8,7 @@ const initialState = {
     description: "New Description",
     course: "6611cdf8f4fcf6fe33fef998",
     quizType: "Graded Quiz",
-    points: 100,
+    points: 0,
     assignmentGroup: "Quizzes",
     shuffleAnswers: true,
     timeLimit: 20,
@@ -23,7 +23,7 @@ const initialState = {
     untilDate: "2022-12-31",
     correctAnswersDate: "2022-12-31",
     isTimeLimited: true,
-    isPublished: true,
+    isPublished: false,
     questions: [],
 
   },
@@ -33,7 +33,7 @@ const initialState = {
     description: "New Description",
     course: "6611cdf8f4fcf6fe33fef998",
     quizType: "Graded Quiz",
-    points: 100,
+    points: 0,
     assignmentGroup: "Quizzes",
     shuffleAnswers: true,
     timeLimit: 20,
@@ -48,7 +48,7 @@ const initialState = {
     untilDate: "2022-12-31",
     correctAnswersDate: "2022-12-31",
     isTimeLimited: true,
-    isPublished: true,
+    isPublished: false,
     questions: [],
   },
   dummyQuiz: {
@@ -57,7 +57,7 @@ const initialState = {
     description: "New Description",
     course: "6611cdf8f4fcf6fe33fef998",
     quizType: "Graded Quiz",
-    points: 100,
+    points: 0,
     assignmentGroup: "Quizzes",
     shuffleAnswers: true,
     timeLimit: 20,
@@ -72,7 +72,7 @@ const initialState = {
     untilDate: "2022-12-31",
     correctAnswersDate: "2022-12-31",
     isTimeLimited: true,
-    isPublished: true,
+    isPublished: false,
     questions: []
   },
 };

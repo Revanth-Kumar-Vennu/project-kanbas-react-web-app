@@ -28,11 +28,12 @@ function Quizzes() {
   const [showDropdown, setShowDropdown] = useState(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
-  const currentUserRole = useSelector( (state: KanbasState) => state.usersReducer.role )
+  const currentUserRole = useSelector(
+    (state: KanbasState) => state.usersReducer.role
+  );
 
-
-  const isAdminOrFaculty= (currentUserRole === "ADMIN") || (currentUserRole === "FACULTY");
-
+  const isAdminOrFaculty =
+    currentUserRole === "ADMIN" || currentUserRole === "FACULTY";
 
   const quizList = useSelector(
     (state: KanbasState) => state.quizzesReducer.quizzes
@@ -47,10 +48,25 @@ function Quizzes() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    client
-      .findQuizForCourse(courseId)
-      .then((quizzes) => dispatch(setQuizzes(quizzes)));
-  }, [courseId, dispatch]);
+    console.log("isAdminOrFaculty", isAdminOrFaculty);
+    if (isAdminOrFaculty) {
+      client
+        .findQuizForCourse(courseId)
+        .then((quizzes) => dispatch(setQuizzes(quizzes)));
+    } else {
+      client
+        .findQuizForCourse(courseId)
+        .then((quizzes) =>
+          dispatch(
+            setQuizzes(
+              quizzes.filter(
+                (quiz: { isPublished: boolean }) => quiz.isPublished === true
+              )
+            )
+          )
+        );
+    }
+  }, [courseId, dispatch, isAdminOrFaculty]);
 
   const handleDelete = (quizId: string) => {
     client.deleteQuiz(quizId).then(() => {
@@ -116,25 +132,28 @@ function Quizzes() {
             aria-label="Search"
           />
         </div>
-              {isAdminOrFaculty && (
-        <div className="ms-auto">
-          <button
-            className="btn btn-danger me-2 wd-add-module"
-            onClick={() => handleCreateQuiz()}
-          >
-            <FaPlus className="fas fa-plus me-2" /> Add Quiz
-          </button>
-          <button className="btn btn-secondary me-2 wd-module-button">
-            <FaEllipsisV className="fas fa-ellipsis-v" />
-          </button>
-        </div>
-      )}
-
+        {isAdminOrFaculty && (
+          <div className="ms-auto">
+            <button
+              className="btn btn-danger me-2 wd-add-module"
+              onClick={() => handleCreateQuiz()}
+            >
+              <FaPlus className="fas fa-plus me-2" /> Add Quiz
+            </button>
+            <button className="btn btn-secondary me-2 wd-module-button">
+              <FaEllipsisV className="fas fa-ellipsis-v" />
+            </button>
+          </div>
+        )}
       </div>
       <hr className="wd-todo-hr" />
       {quizList.length === 0 && (
         <div>
-          <h4>Click on Add Quiz button to add a new quiz</h4>
+          {isAdminOrFaculty ? (
+            <h4>Click on Add Quiz button to add a new quiz</h4>
+          ) : (
+            <h4>No Quizzes found for this course</h4>
+          )}
         </div>
       )}
       {quizList.length > 0 && (
@@ -187,79 +206,78 @@ function Quizzes() {
                       {getAvailabilityStatus(quiz)}
                     </span>{" "}
                     | <b>Due</b> {quiz.dueDate} | {quiz.points} pts |{" "}
-                    {quiz.numberOfQuestions} questions
+                    {quiz?.questions?.length} {quiz?.questions?.length > 1 ? "Questions" : "Question"}
                   </p>
                 </div>
                 {isAdminOrFaculty && (
-  <div className="ms-auto">
-    {quiz.isPublished && (
-      <FaCheckCircle
-        style={{ fontSize: "22" }}
-        className="fas fa-check-circle text-success   me-2"
-      />
-    )}
-    {!quiz.isPublished && (
-      <FaBan
-        style={{ fontSize: "22" }}
-        className="fas fa-trash wd-trash-symbol text-danger me-2"
-      />
-    )}
-    <div className="dropdown">
-      <FaEllipsisV
-        className="fas fa-ellipsis-v wd-dots  me-2"
-        onClick={() => {
-          setShowDropdown(quiz._id);
-          setToggleDropdown(!toggleDropdown);
-        }}
-      />
-      <ul
-        className={
-          showDropdown === quiz._id && toggleDropdown
-            ? "dropdown-menu show"
-            : "dropdown-menu"
-        }
-      >
-        <li>
-          <button
-            className="dropdown-item"
-            onClick={() => {
-              // Handle Edit action
-              navigate(
-                `/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}`
-              );
-            }}
-          >
-            Edit
-          </button>
-        </li>
-        <li>
-          <button
-            className="dropdown-item"
-            onClick={() => {
-              dispatch(setQuiz(quiz));
-              console.log("quiz", quiz);
-              handlePublish(quiz);
-            }}
-          >
-            {quiz.isPublished ? " Unpublish" : " Publish"}
-          </button>
-        </li>
-        <li>
-          <button
-            className="dropdown-item"
-            onClick={() => {
-              setShowConfirm(true);
-              dispatch(setSelectedQuiz(quiz));
-            }}
-          >
-            Delete
-          </button>
-        </li>
-      </ul>
-    </div>
-  </div>
-)}
-
+                  <div className="ms-auto">
+                    {quiz.isPublished && (
+                      <FaCheckCircle
+                        style={{ fontSize: "22" }}
+                        className="fas fa-check-circle text-success   me-2"
+                      />
+                    )}
+                    {!quiz.isPublished && (
+                      <FaBan
+                        style={{ fontSize: "22" }}
+                        className="fas fa-trash wd-trash-symbol text-danger me-2"
+                      />
+                    )}
+                    <div className="dropdown">
+                      <FaEllipsisV
+                        className="fas fa-ellipsis-v wd-dots  me-2"
+                        onClick={() => {
+                          setShowDropdown(quiz._id);
+                          setToggleDropdown(!toggleDropdown);
+                        }}
+                      />
+                      <ul
+                        className={
+                          showDropdown === quiz._id && toggleDropdown
+                            ? "dropdown-menu show"
+                            : "dropdown-menu"
+                        }
+                      >
+                        <li>
+                          <button
+                            className="dropdown-item"
+                            onClick={() => {
+                              // Handle Edit action
+                              navigate(
+                                `/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}`
+                              );
+                            }}
+                          >
+                            Edit
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            className="dropdown-item"
+                            onClick={() => {
+                              dispatch(setQuiz(quiz));
+                              console.log("quiz", quiz);
+                              handlePublish(quiz);
+                            }}
+                          >
+                            {quiz.isPublished ? " Unpublish" : " Publish"}
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            className="dropdown-item"
+                            onClick={() => {
+                              setShowConfirm(true);
+                              dispatch(setSelectedQuiz(quiz));
+                            }}
+                          >
+                            Delete
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                )}
               </li>
             ))}
         </ul>
