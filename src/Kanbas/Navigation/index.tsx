@@ -74,7 +74,7 @@ function KanbasNavigation() {
   return (
     <>
       {authenticated && (
-        <div className="side-nav-container">
+        <div className="side-nav-container" style={{height:'100%'}}>
           <ul className="wd-kanbas-navigation">
             <li>
               <Link to="http://northeastern.edu">
