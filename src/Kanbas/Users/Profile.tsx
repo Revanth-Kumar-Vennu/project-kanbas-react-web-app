@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { KanbasState } from "../store";
 import { useDispatch, useSelector } from "react-redux";
-import {  setUserAuth } from "./userReducer";
+import { setUserAuth } from "./userReducer";
 
 export default function Profile() {
   const [profile, setProfile] = useState({
@@ -21,7 +21,7 @@ export default function Profile() {
   //   (state: KanbasState) => state.usersReducer.currentUser
   // );
 
-  const dispatch= useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const userAuth = useSelector(
@@ -31,7 +31,7 @@ export default function Profile() {
   const fetchProfile = async () => {
     const account = await client.profile();
     setProfile(account);
-    console.log(account)
+    console.log(account);
     // dispatch(setUser(account));
   };
   useEffect(() => {
@@ -69,7 +69,6 @@ export default function Profile() {
             value={profile.username}
             onChange={(e) =>
               setProfile({ ...profile, username: e.target.value })
-              
             }
           />
           <br />
@@ -120,10 +119,34 @@ export default function Profile() {
             className="form-control"
             onChange={(e) => setProfile({ ...profile, role: e.target.value })}
           >
-            <option value="USER">User</option>
-            <option value="ADMIN">Admin</option>
-            <option value="FACULTY">Faculty</option>
-            <option value="STUDENT">Student</option>
+            {profile.role === "ADMIN" ? (
+              <option value="ADMIN" selected>
+                Admin
+              </option>
+            ) : (
+              <option value="ADMIN">Admin</option>
+            )}
+            {profile.role === "USER" ? (
+              <option value="USER" selected>
+                User
+              </option>
+            ) : (
+              <option value="USER">User</option>
+            )}
+            {profile.role === "FACULTY" ? (
+              <option value="FACULTY" selected>
+                Faculty
+              </option>
+            ) : (
+              <option value="FACULTY">Faculty</option>
+            )}
+            {profile.role === "STUDENT" ? (
+              <option value="STUDENT" selected>
+                Student
+              </option>
+            ) : (
+              <option value="STUDENT">Student</option>
+            )}
           </select>
           <br />
           <button className="btn btn-primary" onClick={save}>
