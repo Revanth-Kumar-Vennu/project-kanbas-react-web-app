@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { KanbasState } from "../store";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserAuth } from "./userReducer";
+import { setUser, setUserAuth } from "./userReducer";
 
 export default function Profile() {
   const [profile, setProfile] = useState({
@@ -39,6 +39,8 @@ export default function Profile() {
   }, []);
   const save = async () => {
     await client.updateUser(profile);
+    // setUserAuth(true);
+    dispatch(setUser(profile.role));
     setSuccess(true);
   };
 
