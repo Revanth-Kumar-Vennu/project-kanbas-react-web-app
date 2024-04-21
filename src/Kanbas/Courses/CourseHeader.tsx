@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { FaBars, FaGlasses } from "react-icons/fa";
 import "./index.css";
+import { useSelector } from "react-redux";
+import { KanbasState } from "../store";
 function CourseHeader({
   course_id,
   location,
@@ -12,6 +14,7 @@ function CourseHeader({
  
 }) {
   
+ 
   const course_navigation = [
     "Home",
     "Modules",
@@ -40,6 +43,12 @@ function CourseHeader({
     parts.splice(6);
   }
   
+  const currentUserRole = useSelector( (state: KanbasState) => state.usersReducer.role )
+
+
+  const isAdminOrFaculty= (currentUserRole === "ADMIN") || (currentUserRole === "FACULTY");
+
+
   let inSubModule = false;
   let course_nav = "";
   // Get the last part of the URL
@@ -110,9 +119,12 @@ function CourseHeader({
             </ol>
           </nav>
         </div>
-        <button className="btn  wd-module-button col-2">
-          <FaGlasses className="fas fa-glasses" /> Student View
-        </button>
+        {isAdminOrFaculty && (
+          <button className="btn  wd-module-button col-2">
+            <FaGlasses className="fas fa-glasses" /> Student View
+          </button>
+        )}
+
       </div>
       <hr className="wd-todo-hr" />
     </div>
