@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import "../index.css";
 import { useDispatch, useSelector } from "react-redux";
 import { KanbasState } from "../../../store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { setQuiz, updateQuiz } from "../quizzesReducer";
 import * as client from "../client";
 import "./index.css";
@@ -13,9 +13,22 @@ function QuizDetails() {
   const navigate = useNavigate();
   const { courseId } = useParams();
   const currentUserRole = useSelector( (state: KanbasState) => state.usersReducer.role )
+  const [accessCode, setAccessCode] = useState("");
+  const [isValidAccessCode, setIsValidAccessCode] = useState(false);
+  const [isAccessCodeSubmitted, setIsAccessCodeSubmitted] = useState(false);
 
+  const handleStartQuiz = () => {
+ 
+    const correctAccessCode = quiz.accessCode;
+    if (!correctAccessCode || accessCode === correctAccessCode ) {
+     
+      navigate(`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}/Preview`);
+    } else {
+      alert("Please enter a valid access code to start the quiz.");
+    }
+  };
 
-  const isAdminOrFaculty= (currentUserRole === "ADMIN") || (currentUserRole === "FACULTY") || (currentUserRole === "user");
+  const isAdminOrFaculty= (currentUserRole === "ADMIN") || (currentUserRole === "FACULTY");
 
   function formatDate(inputDateString: string): string {
     // Create a new Date object using the input date string
@@ -57,6 +70,17 @@ function QuizDetails() {
     client.updateQuiz(quiz).then(() => {
       dispatch(updateQuiz(quiz));
     });
+  };
+
+  const validateAccessCode = () => {
+    const correctAccessCode = quiz.accessCode;
+    if (accessCode === correctAccessCode) {
+      setIsValidAccessCode(true);
+    } else {
+      setIsValidAccessCode(false);
+      alert("Incorrect access code. Please try again.");
+    }
+    setIsAccessCodeSubmitted(true);
   };
 
   useEffect(() => {
@@ -306,18 +330,55 @@ function QuizDetails() {
         </table>
       </div>
 
-      {!isAdminOrFaculty && (
- <div className="start-quiz-container">
+
+{/* {!isAdminOrFaculty && (
+        <div className="start-quiz-container">
+          <input
+            type="text"
+            placeholder="Enter Access Code"
+            value={accessCode}
+            onChange={(e) => setAccessCode(e.target.value)}
+            disabled={!quiz.accessCode || isValidAccessCode || isAccessCodeSubmitted}
+          />
+          <button
+            className="start-quiz-button"
+            onClick={handleStartQuiz}
+            disabled={!accessCode || isValidAccessCode || isAccessCodeSubmitted}
+          >
+            Start Quiz
+          </button>
+        </div>
+      )} */}
+{!isAdminOrFaculty && !quiz.accessCode && (
+  <div className="start-quiz-container">
     <button
       className="start-quiz-button"
-      onClick={() => {
-        navigate(`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}/Preview`);
-      }}
+      onClick={handleStartQuiz}
     >
       Start Quiz
     </button>
   </div>
 )}
+
+{!isAdminOrFaculty && quiz.accessCode && (
+  <div className="start-quiz-container">
+    <input
+      type="text"
+      placeholder="Enter Access Code"
+      value={accessCode}
+      onChange={(e) => setAccessCode(e.target.value)}
+      disabled={isValidAccessCode || isAccessCodeSubmitted}
+    />
+    <button
+      className="start-quiz-button"
+      onClick={handleStartQuiz}
+      disabled={!accessCode || isValidAccessCode || isAccessCodeSubmitted}
+    >
+      Start Quiz
+    </button>
+  </div>
+)}
+
 
     </div>
   );
