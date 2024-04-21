@@ -205,7 +205,7 @@ function Quizzes() {
                     <span className="wd-module-link">
                       {getAvailabilityStatus(quiz)}
                     </span>{" "}
-                    | <b>Due</b> {quiz.dueDate} | {quiz.points} pts |{" "}
+                    | <b>Due</b> {quiz.dueDate?.split('T')[0]} | {quiz.points} pts |{" "}
                     {quiz?.questions?.length} {quiz?.questions?.length > 1 ? "Questions" : "Question"}
                   </p>
                 </div>
