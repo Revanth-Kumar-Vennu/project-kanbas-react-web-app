@@ -248,6 +248,14 @@ function QuizDetails() {
         </div>
         <div className="row">
           <div className="col-3">
+            <strong className="float-right">Access Code</strong>
+          </div>
+          <div className="col-9">{quiz.accessCode !== "" ?  
+          quiz.accessCode : "No Access Code For This Quiz"}
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-3">
             <strong className="float-right">Shuffle Answers</strong>
           </div>
           <div className="col-9">{quiz.shuffleAnswers ? "Yes" : "No"}</div>
